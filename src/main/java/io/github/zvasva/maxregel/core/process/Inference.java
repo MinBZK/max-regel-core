@@ -2,10 +2,7 @@ package io.github.zvasva.maxregel.core.process;
 
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
-import io.github.zvasva.maxregel.core.process.rule.Assign;
-import io.github.zvasva.maxregel.core.process.rule.Rule;
-import io.github.zvasva.maxregel.core.process.rule.RuleResult;
-import io.github.zvasva.maxregel.core.process.rule.Script;
+import io.github.zvasva.maxregel.core.process.rule.*;
 
 import java.util.Collection;
 
@@ -41,12 +38,20 @@ public class Inference {
         for (i = 0; i < maxIterations; i++) {
             boolean changed = false;
             for (Rule rule : rules) {
-                RuleResult result = rule.apply(totalFactSet, tracer);
-                totalFactSet = result.total();
-                totalUpdate = totalUpdate.union(result.update()).distinct();
-                long newSize = totalUpdate.size();
-                changed |= newSize > lastUpdateSize;
-                lastUpdateSize = newSize;
+                if(rule instanceof ReturnIf returnIf){
+                    if(returnIf.condition(totalFactSet)){
+                        totalUpdate = returnIf.result(totalFactSet);
+                        changed = false;
+                        break;
+                    }
+                } else {
+                    RuleResult result = rule.apply(totalFactSet, tracer);
+                    totalFactSet = result.total();
+                    totalUpdate = totalUpdate.union(result.update()).distinct();
+                    long newSize = totalUpdate.size();
+                    changed |= newSize > lastUpdateSize;
+                    lastUpdateSize = newSize;
+                }
             }
             if(!changed){
                 break;

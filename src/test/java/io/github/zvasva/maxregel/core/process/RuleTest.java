@@ -555,4 +555,28 @@ public class RuleTest {
         FactSet simpsons2 = new Identity().apply(simpsons);
         assertEquals(simpsons, simpsons2);
     }
+
+    @Test
+    public void testReturnIf1() {
+        FactSet facts = FactSets.create(
+                FactSets.create("FA", MapTerm.of("A", "menno", "B", "arvid")),
+                FactSets.create("FB", MapTerm.of("B", 1)),
+                FactSets.create("FC",MapTerm.of("C", 3))
+        );
+        ReturnIf returnIf = new ReturnIf(new From("FB"));
+        assertTrue(returnIf.condition(facts));
+    }
+
+    @Test
+    public void testReturnIf2() {
+        FactSet facts = FactSets.create(
+                FactSets.create("FA", MapTerm.of("A", "menno", "B", "arvid")),
+                FactSets.create("FB", MapTerm.of("B", 1)),
+                FactSets.create("FC",MapTerm.of("C", 3))
+        );
+        ReturnIf returnIf = new ReturnIf(new From("FB"), new Exists(), new From("FC"));
+        assertTrue(returnIf.condition(facts));
+        assertEquals(3, FactSets.value(returnIf.result(facts)));
+
+    }
 }
