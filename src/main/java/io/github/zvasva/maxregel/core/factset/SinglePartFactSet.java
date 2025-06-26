@@ -29,9 +29,9 @@ public class SinglePartFactSet extends AbstractFactSet {
     // Map from field name -> value -> factset
     private final Map<String, Map<Object, FactSet>> fieldIndex;
 
-    public  Map<Object, FactSet> getIndex(String fieldName)  {
+    public Map<Object, FactSet> getIndex(String fieldName)  {
         return fieldIndex.computeIfAbsent(fieldName, f -> {
-            Map<Object, List<Fact>> valueMap = new ConcurrentHashMap<>();
+            Map<Object, List<Fact>> valueMap = new HashMap<>();
             for (Fact fact : facts) {
                 Object value = fact.get(fieldName);
                 if(value == null) {
@@ -127,6 +127,7 @@ public class SinglePartFactSet extends AbstractFactSet {
     @Override
     public FactSet setPart(String newName) {
         return new SinglePartFactSet(facts, newName, distinct, factOperation, fieldIndex);
+//        return new SinglePartFactSet(facts, newName, distinct, factOperation, new ConcurrentHashMap<>());
     }
 
     @Override
@@ -136,7 +137,12 @@ public class SinglePartFactSet extends AbstractFactSet {
             if(y instanceof Number n) {
                 y = n.doubleValue(); // int, long, double... all to double
             }
-            return getIndex(cmp.getField()).getOrDefault(y, EMPTY);
+            FactSet filtered = getIndex(cmp.getField()).getOrDefault(y, EMPTY);
+            if(!filtered.isEmpty() && !filtered.has(name)) {
+                // the fieldIndex is shared and the name may have been changed among instances.
+                filtered = filtered.setPart(name);
+            }
+            return filtered;
         }
         return new SinglePartFactSet(facts.stream().filter(predicate.asJavaPredicate())::iterator, name, distinct, factOperation());
     }

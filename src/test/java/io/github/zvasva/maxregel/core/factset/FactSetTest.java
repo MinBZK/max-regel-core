@@ -259,7 +259,6 @@ public class FactSetTest {
     }
 
     @Test
-//    @Disabled("Disabled because it is not working")
     public void named(){
         FactSet johnsons = simpsons.setPart("johnsons");
         assertEquals(johnsons.parts(), Set.of("johnsons"));

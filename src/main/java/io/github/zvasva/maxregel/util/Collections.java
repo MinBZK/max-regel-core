@@ -2,6 +2,7 @@ package io.github.zvasva.maxregel.util;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +42,22 @@ public class Collections {
         return map.entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> f.apply(e.getValue())));
+    }
+
+    /**
+     * Apply a function to all values of a map.
+     * @param map the original map.
+     * @param f the function to apply to all values
+     * @param mapSupplier e.g. ConcurrentHashMap::new
+     * @return a new map
+     * @param <K> key type
+     * @param <V> original value type
+     * @param <W> new value type
+     */
+    public static <K, V, W> Map<K, W> mapValues(Map<K, V> map, Function<V, W> f, Supplier<Map<K, W>> mapSupplier) {
+        return map.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> f.apply(e.getValue()), (a, b) -> b, mapSupplier));
     }
 
     /**
