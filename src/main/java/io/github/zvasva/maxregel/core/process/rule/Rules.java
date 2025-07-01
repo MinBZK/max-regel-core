@@ -10,6 +10,7 @@ import io.github.zvasva.maxregel.core.process.predicate.Predicates;
 import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.Term;
 import io.github.zvasva.maxregel.util.Collections;
+import io.github.zvasva.maxregel.util.Iters;
 import io.github.zvasva.maxregel.util.PrettyPrint;
 
 import java.util.*;
@@ -186,8 +187,20 @@ public class Rules {
     }
 
 
+    public static Rule sequence(List<Rule> rules) {
+        // Left associative sequence of rules
+        // return rules.stream().reduce(new Identity(), Then::new);
+
+        // Right associative sequence of rules
+        return rules.reversed().stream().reduce(new Identity(), (a, b) -> new Then(b, a));
+    }
+
     public static Rule sequence(Rule... rules) {
-        return Arrays.stream(rules).reduce(new Identity(), Then::new);
+        // Left associative sequence of rules
+        // return Arrays.stream(rules).reduce(new Identity(), Then::new);
+
+        // Right associative sequence of rules
+        return Iters.reverse(Arrays.stream(rules)).reduce(new Identity(), (a, b) -> new Then(b, a));
     }
 
     public static Script script(Rule... rules) {
