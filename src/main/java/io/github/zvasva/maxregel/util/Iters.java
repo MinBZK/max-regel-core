@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -122,6 +123,21 @@ public class Iters {
 
     public static <T> T first(Iterable<T> iterable, T defaultValue) {
         return first(iterable.iterator(), defaultValue);
+    }
+
+    public static <T> Iterator<T> reverse(Iterator<T> input) {
+        return toList(input).reversed().iterator();
+    }
+
+    public static <T> Iterable<T> reverse(Iterable<T> input) {
+        return () -> toList(input).reversed().iterator();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Stream<T> reverse(Stream<T> input) {
+        Object[] temp = input.toArray();
+        return (Stream<T>) IntStream.range(0, temp.length)
+                .mapToObj(i -> temp[temp.length - i - 1]);
     }
 
     /**
