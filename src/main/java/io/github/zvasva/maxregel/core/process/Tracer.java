@@ -6,6 +6,7 @@ import io.github.zvasva.maxregel.core.process.rule.BasicRule;
 import io.github.zvasva.maxregel.core.process.rule.Rule;
 import io.github.zvasva.maxregel.core.process.rule.Rules;
 import io.github.zvasva.maxregel.util.Collections;
+import io.github.zvasva.maxregel.util.PrettyPrint;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,14 @@ import java.util.Map;
 public interface Tracer {
 
     void apply(Rule rule, FactSet newFacts);
+
+    default void except(Exception e, Rule rule, FactSet facts) {
+        System.err.println("The following statement: " + PrettyPrint.pretty(rule));
+        System.err.println("\nThrew exception: " + e.getMessage() );
+        System.err.println("\nOn a factset with parts: " + facts.parts() );
+        System.err.println();
+        e.printStackTrace();
+    }
 
     public static Tracer NONE = new None();
     public static Tracer ASSIGNMENTS = new Assignments();
