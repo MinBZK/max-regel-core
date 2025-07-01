@@ -7,7 +7,7 @@ import io.github.zvasva.maxregel.core.process.Tracer;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
 /**
- * First apply rule a, then apply rule b on the result.
+ * First apply rule <i>a</i>, then apply rule <i>b</i> on the result.
  */
 public class Then extends AbstractRule {
 
@@ -16,6 +16,14 @@ public class Then extends AbstractRule {
     public Then(Rule a, Rule b) {
         this.a = requireNonNullArg(a, "a");
         this.b = requireNonNullArg(b, "b");
+    }
+
+    public Rule getA() {
+        return a;
+    }
+
+    public Rule getB() {
+        return b;
     }
 
     @Override

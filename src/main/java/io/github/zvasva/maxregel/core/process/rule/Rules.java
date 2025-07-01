@@ -364,4 +364,21 @@ public class Rules {
         }
     }
 
+    public static Rule ensureRightAssociativeThen(Rule rule) {
+
+        // rewrite then(then(a, b), c) to then(a, then(b, c))
+
+        if( rule instanceof Then thenRule) {
+            Rule left = ensureRightAssociativeThen(thenRule.getA());
+            Rule right = ensureRightAssociativeThen(thenRule.getB());
+            if (left instanceof Then leftThen) {
+                return new Then(leftThen.getA(), new Then(leftThen.getB(), right));
+            } else {
+                return new Then(left, right);
+            }
+        } else {
+            return rule;
+        }
+    }
+
 }
