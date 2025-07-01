@@ -18,13 +18,13 @@ public class Print extends AbstractRule {
         this(Rule.identity(),"");
     }
 
-    public Print(String variable) {
-        this(Rule.identity(), variable);
+    public Print(String message) {
+        this(Rule.identity(), message);
     }
 
-    public Print(Rule select, String variable) {
+    public Print(Rule select, String message) {
         this.select = requireNonNullArg(select, "select");
-        this.message = requireNonNullArg(variable, "message");
+        this.message = requireNonNullArg(message, "message");
     }
 
     @Override
