@@ -1,10 +1,6 @@
 package io.github.zvasva.maxregel.core.factset;
 
 
-import io.github.zvasva.maxregel.core.factset.Concat;
-import io.github.zvasva.maxregel.core.factset.FactSet;
-import io.github.zvasva.maxregel.core.factset.FactSets;
-import io.github.zvasva.maxregel.core.factset.SinglePartFactSet;
 import io.github.zvasva.maxregel.core.process.UnaryOperation;
 import io.github.zvasva.maxregel.core.process.factoperation.ComputeAge;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldEq;
