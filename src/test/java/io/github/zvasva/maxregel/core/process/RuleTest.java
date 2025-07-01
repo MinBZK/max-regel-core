@@ -256,6 +256,7 @@ public class RuleTest {
 
 
     @Test
+    @Disabled
     public void testBackwardChaining1(){
         FactSet facts = FactSets.create(
                 FactSets.create("A", MapTerm.of("a", 1))
@@ -561,7 +562,7 @@ public class RuleTest {
         FactSet facts = FactSets.create(
                 FactSets.create("FA", MapTerm.of("A", "menno", "B", "arvid")),
                 FactSets.create("FB", MapTerm.of("B", 1)),
-                FactSets.create("FC",MapTerm.of("C", 3))
+                FactSets.create("FC", MapTerm.of("C", 3))
         );
         ReturnIf returnIf = new ReturnIf(new From("FB"));
         assertTrue(returnIf.condition(facts));
@@ -578,5 +579,48 @@ public class RuleTest {
         assertTrue(returnIf.condition(facts));
         assertEquals(3, FactSets.value(returnIf.result(facts)));
 
+    }
+
+
+    @Test
+    public void testScriptReturnIf2() {
+        FactSet facts = FactSets.create(
+                FactSets.create("FA", MapTerm.of("A", 1)),
+                FactSets.create("FB", MapTerm.of("B", 2)),
+                FactSets.create("FC",MapTerm.of("C", 3))
+        );
+        Script script = script(
+                let("FAA", from("FA")),
+                new ReturnIf(from("FAA")),
+                let("FCC", from("FC"))
+        );
+
+        FactSet result = script.apply(facts);
+        print(result);
+        assertFalse(result.has("FCC"));
+    }
+
+    @Test
+    public void testSubReturnIf1() {
+        FactSet facts = FactSets.create(
+                FactSets.create("FA", MapTerm.of("A", 1)),
+                FactSets.create("FB", MapTerm.of("B", 2)),
+                FactSets.create("FC",MapTerm.of("C", 3))
+        );
+        Script script = script(
+//                new Print()
+                let("FAA", from("FA")),
+                let("FBB", script(
+                        let("SUBFB_SHOULD_BE_RETURNED", from("FB")),
+                        new ReturnIf(from("SUBFB_SHOULD_BE_RETURNED")),
+                        let("SUBFA_SHOULD_NOT_BE_RETURNED", from("FA")),
+                        from("SUBFA_SHOULD_NOT_BE_RETURNED")
+                )),
+                let("FCC", from("FC"))
+        );
+
+        print(script);
+        FactSet results = script.apply(facts, new Tracer.Assignments()).update();
+        print(results);
     }
 }

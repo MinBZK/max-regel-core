@@ -2,6 +2,7 @@ package io.github.zvasva.maxregel.core.process.rule;
 
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.process.AstNode;
+import io.github.zvasva.maxregel.core.process.Tracer;
 import io.github.zvasva.maxregel.core.process.predicate.Exists;
 import io.github.zvasva.maxregel.core.process.predicate.Predicate;
 
@@ -46,6 +47,10 @@ public class ReturnIf extends AbstractRule {
 
     public FactSet result(FactSet factset) {
         return resultSelect.apply(factset);
+    }
+
+    public RuleResult result(FactSet factset, Tracer tracer) {
+        return resultSelect.apply(factset, tracer);
     }
 
     @Override

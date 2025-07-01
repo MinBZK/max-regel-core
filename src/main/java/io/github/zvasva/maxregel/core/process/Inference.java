@@ -38,29 +38,29 @@ public class Inference {
         for (i = 0; i < maxIterations; i++) {
             boolean changed = false;
             for (Rule rule : rules) {
-                if(rule instanceof ReturnIf returnIf){
-                    if(returnIf.condition(totalFactSet)){
-                        totalUpdate = returnIf.result(totalFactSet);
-                        changed = false;
-                        break;
-                    }
-                } else if (rule instanceof Script script) {
-                    // recursively infer the script... Then you can ReturnIf
-                    int iterationsLeft = maxIterations - i;
-                    FactSet update = infer2(totalFactSet, script.getRules(), tracer, iterationsLeft);
-                    totalUpdate = totalUpdate.union(update).distinct();
-                    totalFactSet = totalFactSet.union(update); // don't distinct because we don't want to "distinct" the initial data "givenFacts
-                    long newSize = totalUpdate.size();
-                    changed |= newSize > lastUpdateSize;
-                    lastUpdateSize = newSize;
-                } else {
+//                if(rule instanceof ReturnIf returnIf){
+//                    if(returnIf.condition(totalFactSet)){
+//                        totalUpdate = returnIf.result(totalFactSet);
+//                        changed = false;
+//                        break;
+//                    }
+//                } else if (rule instanceof Script script) {
+//                    // recursively infer the script... Then you can ReturnIf
+//                    int iterationsLeft = maxIterations - i;
+//                    FactSet update = infer2(totalFactSet, script.getRules(), tracer, iterationsLeft);
+//                    totalUpdate = totalUpdate.union(update).distinct();
+//                    totalFactSet = totalFactSet.union(update); // don't distinct because we don't want to "distinct" the initial data "givenFacts
+//                    long newSize = totalUpdate.size();
+//                    changed |= newSize > lastUpdateSize;
+//                    lastUpdateSize = newSize;
+//                } else {
                     RuleResult result = rule.apply(totalFactSet, tracer);
                     totalFactSet = result.total();
                     totalUpdate = totalUpdate.union(result.update()).distinct();
                     long newSize = totalUpdate.size();
                     changed |= newSize > lastUpdateSize;
                     lastUpdateSize = newSize;
-                }
+//                }
             }
             if(!changed){
                 break;

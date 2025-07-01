@@ -4,11 +4,9 @@ import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.process.AstNode;
 import io.github.zvasva.maxregel.core.process.Tracer;
 import io.github.zvasva.maxregel.util.Collections;
-import io.github.zvasva.maxregel.util.PrettyPrint;
 
 import java.util.List;
 
-import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
 /**
@@ -41,43 +39,14 @@ public class Script extends AbstractRule {
         return createNode(rules.stream().map(Rule::ast).toArray());
     }
 
-    private static void printException(Rule r, Exception e) {
-        System.err.println("The following statement: " + PrettyPrint.pretty(r));
-        System.err.println("\nThrew exception: " + e.getMessage() );
-        System.err.println();
-        e.printStackTrace();
-    }
-
     @Override
     public RuleResult apply(FactSet factset, Tracer tracer) {
-        FactSet update = EMPTY;
-        FactSet total = factset;
-        for (Rule rule : rules) {
-            RuleResult result = null;
-            try {
-                result = rule.apply(total, tracer);
-            } catch (Exception e) {
-                printException(rule, e);
-                throw e; // rethrow
-            }
-            update = update.union(result.update());
-            total = result.total();
-        }
-        return new RuleResult(update, total);
+        return Rules.sequence(rules).apply(factset, tracer);
     }
 
     @Override
     public FactSet apply(FactSet factset) {
-        FactSet result = factset;
-        for (Rule rule : rules) {
-            try {
-                result = rule.apply(result);
-            } catch (Exception e) {
-                printException(rule, e);
-                throw e; // rethrow
-            }
-        }
-        return result;
+        return Rules.sequence(rules).apply(factset);
     }
 
     public Script append (Script script) {
