@@ -23,9 +23,7 @@ public interface Rule extends UnaryOperation<FactSet> {
      * @return a tuple of the total and update facts.
      */
     default RuleResult apply(FactSet facts, Tracer tracer, AssignmentStructure assignmentStructure) {
-        FactSet updates = apply(facts);
-        tracer.apply(this, updates);
-        return new RuleResult(updates, facts);
+        return apply(facts, tracer); // Ignore assignment structure by default
     }
 
     /**
@@ -39,9 +37,14 @@ public interface Rule extends UnaryOperation<FactSet> {
      * @return a tuple of the total and update facts.
      */
     default RuleResult apply(FactSet facts, Tracer tracer) {
-        FactSet updates = apply(facts);
-        tracer.apply(this, updates);
-        return new RuleResult(updates, facts);
+        try {
+            FactSet updates = apply(facts);
+            tracer.apply(this, updates);
+            return new RuleResult(updates, facts);
+        } catch (Exception e) {
+            tracer.except(e, this, facts);
+            throw e; // Re-throw the exception after tracing
+        }
     }
 
     /**
