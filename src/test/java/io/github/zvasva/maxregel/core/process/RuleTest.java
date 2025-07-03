@@ -597,6 +597,7 @@ public class RuleTest {
 
         FactSet result = script.apply(facts);
         print(result);
+        assertTrue(result.has("FAA"));
         assertFalse(result.has("FCC"));
     }
 
@@ -612,7 +613,10 @@ public class RuleTest {
                 let("FAA", from("FA")),
                 let("FBB", script(
                         let("SUBFB_SHOULD_BE_RETURNED", from("FB")),
-                        new ReturnIf(from("SUBFB_SHOULD_BE_RETURNED")),
+                        new ReturnIf(from("SUBFB_SHOULD_BE_RETURNED"),
+                                new Exists(), // condition
+                                from("SUBFB_SHOULD_BE_RETURNED") // result
+                        ),
                         let("SUBFA_SHOULD_NOT_BE_RETURNED", from("FA")),
                         from("SUBFA_SHOULD_NOT_BE_RETURNED")
                 )),
@@ -620,7 +624,11 @@ public class RuleTest {
         );
 
         print(script);
-        FactSet results = script.apply(facts, new Tracer.Assignments()).update();
-        print(results);
+        FactSet result = script.apply(facts, new Tracer.Assignments()).update();
+        print(result);
+        assertTrue(result.has("FAA"));
+        assertTrue(result.has("FBB"));
+        assertEquals(2, FactSets.value(result.get("FBB"), "B"));
+        assertTrue(result.has("FCC"));
     }
 }

@@ -2,6 +2,7 @@ package io.github.zvasva.maxregel.core.process.rule;
 
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.process.AssignmentStructure;
+import io.github.zvasva.maxregel.core.process.AstNode;
 import io.github.zvasva.maxregel.core.process.Tracer;
 import io.github.zvasva.maxregel.core.process.UnaryOperation;
 import io.github.zvasva.maxregel.util.Collections;

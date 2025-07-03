@@ -3,6 +3,7 @@ package io.github.zvasva.maxregel.core.process.rule;
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
 import io.github.zvasva.maxregel.core.process.AstNode;
+import io.github.zvasva.maxregel.core.process.MaxRegelException;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator;
 import io.github.zvasva.maxregel.core.process.predicate.Exists;
 import io.github.zvasva.maxregel.core.process.predicate.Predicate;
@@ -227,6 +228,11 @@ public class Rules {
 
         final List<?> args = node.args();
         return switch (node.op()) {
+            case "aggregate_count" -> new Aggregate.Count(parse((AstNode) args.get(0)));
+            case "aggregate_sum" -> new Aggregate.Sum(parse((AstNode) args.get(0)));
+            case "aggregate_min" -> new Aggregate.Min(parse((AstNode) args.get(0)));
+            case "aggregate_max" -> new Aggregate.Max(parse((AstNode) args.get(0)));
+            case "aggregate_by" -> new AggregateBy(parse((AstNode) args.get(0)), (List<String>)args.get(1), (String)args.get(2), (Aggregate) parse((AstNode) args.get(3)));
             case "assign_update", "+=" -> new AssignUpdate(args.get(0).toString(), parse((AstNode) args.get(1)));
             case "assign_set", "=" -> new AssignSet(args.get(0).toString(), parse((AstNode) args.get(1)));
             case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
@@ -237,7 +243,7 @@ public class Rules {
             case "then" -> new Then(Rules.parse((AstNode) args.get(0)), Rules.parse((AstNode) args.get(1)));
             case "script" -> new Script(args.stream().map(xs -> Rules.parse((AstNode) xs)).toList());
 
-            default -> throw new IllegalArgumentException("Unsupported rule function name: " + node.op());
+            default -> throw new MaxRegelException("Unsupported rule function name: " + node.op());
         };
     }
 
