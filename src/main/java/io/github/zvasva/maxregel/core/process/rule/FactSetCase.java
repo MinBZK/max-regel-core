@@ -17,32 +17,20 @@ public class FactSetCase extends AbstractRule {
 
     private final List<LookupEntry> lookup;
     private final Rule defaultValue;
-    private final String varName; // todo remove? // for term
 
-    public FactSetCase(List<LookupEntry> lookup, Rule defaultValue, String varName) {
+    public FactSetCase(List<LookupEntry> lookup, Rule defaultValue) {
         this.lookup = requireNonNullArg(lookup, "lookup");
         this.defaultValue = requireNonNullArg(defaultValue, "defaultValue");
-        this.varName = requireNonNullArg(varName, "varName");
     }
 
-    public FactSetCase(LookupEntry lookup, Rule defaultValue, String varName) {
+    public FactSetCase(LookupEntry lookup, Rule defaultValue) {
         this.lookup = requireNonNullArg(List.of(lookup), "lookup");
         this.defaultValue = requireNonNullArg(defaultValue, "defaultValue");
-        this.varName = requireNonNullArg(varName, "varName");
     }
 
-    public FactSetCase(Predicate<FactSet, FactSet> condition, String varName) {
-        this(List.of(new LookupEntry(Rule.identity(), condition, cnst(true))), cnst(false), varName);
+    public FactSetCase(Predicate<FactSet, FactSet> condition) {
+        this(List.of(new LookupEntry(Rule.identity(), condition, cnst(true))), cnst(false));
     }
-
-    /*public FactSetCase(Predicate<FactSet> condition, Rule thenValue, Rule defaultValue, String varName) {
-        requireNonNullArg(condition, "condition");
-        requireNonNullArg(thenValue, "thenValue");
-        this.defaultValue = requireNonNullArg(defaultValue, "defaultValue");
-        this.varName = requireNonNullArg(varName, "varName");
-        lookup = new LinkedHashMap<>(1);
-        lookup.put(condition, thenValue);
-    }*/
 
 
     public List<LookupEntry> getLookup() {
@@ -63,7 +51,7 @@ public class FactSetCase extends AbstractRule {
         List<List<AstNode>> lookupAsListOfTuples = lookup.stream().map(
                 entry -> List.of(entry.conditionSelect.ast(), entry.condition.ast(), entry.consequence.ast())
         ).toList();
-        return createNode(lookupAsListOfTuples, defaultValue.ast(), varName);
+        return createNode(lookupAsListOfTuples, defaultValue.ast());
     }
 
     @Override

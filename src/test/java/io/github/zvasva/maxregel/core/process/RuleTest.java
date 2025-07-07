@@ -315,7 +315,7 @@ public class RuleTest {
                 new FactSetCase.LookupEntry(from("simpsons").then(filter("age", ">", 60)), new Exists(), cnst("includes elderly") )
         );
 
-        FactSetCase kees = new FactSetCase(lookup, cnst("somewhat you population"), "x");
+        FactSetCase kees = new FactSetCase(lookup, cnst("somewhat you population"));
 
         FactSet result = kees.apply(simpsons);
         print(result);

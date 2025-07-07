@@ -215,12 +215,12 @@ public class Rules {
         return new Script(List.of(rules));
     }
 
-    public static Rule factSetCase(FactSetCase.LookupEntry entry, Rule defaultValue, String varName) {
-        return new FactSetCase(entry, defaultValue, varName);
+    public static Rule factSetCase(FactSetCase.LookupEntry entry, Rule defaultValue) {
+        return new FactSetCase(entry, defaultValue);
     }
 
-    public static Rule factSetCase(List<FactSetCase.LookupEntry> entries, Rule defaultValue, String varName) {
-        return new FactSetCase(entries, defaultValue, varName);
+    public static Rule factSetCase(List<FactSetCase.LookupEntry> entries, Rule defaultValue) {
+        return new FactSetCase(entries, defaultValue);
     }
 
     public static FactSetCase.LookupEntry anyThen(Rule select, Rule then) {
