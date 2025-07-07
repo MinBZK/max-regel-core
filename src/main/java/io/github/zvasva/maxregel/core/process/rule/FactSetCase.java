@@ -17,7 +17,7 @@ public class FactSetCase extends AbstractRule {
 
     private final List<LookupEntry> lookup;
     private final Rule defaultValue;
-    private final String varName; // for term
+    private final String varName; // todo remove? // for term
 
     public FactSetCase(List<LookupEntry> lookup, Rule defaultValue, String varName) {
         this.lookup = requireNonNullArg(lookup, "lookup");
@@ -43,6 +43,15 @@ public class FactSetCase extends AbstractRule {
         lookup = new LinkedHashMap<>(1);
         lookup.put(condition, thenValue);
     }*/
+
+
+    public List<LookupEntry> getLookup() {
+        return lookup;
+    }
+
+    public Rule getDefaultValue() {
+        return defaultValue;
+    }
 
     @Override
     public String op() {

@@ -18,8 +18,10 @@ import io.github.zvasva.maxregel.util.PrettyPrint;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * Utilities for creating and manipulating rules to process FactSets.
@@ -398,6 +400,14 @@ public class Rules {
         } else {
             return rule;
         }
+    }
+
+    public static Script transformToScript(FactSetCase factSetCase) {
+        List<Rule> rules = factSetCase.getLookup().stream().map(lookupEntry ->
+            new ReturnIf(lookupEntry.conditionSelect(), lookupEntry.condition(), lookupEntry.consequence())
+        ).collect(toCollection(ArrayList::new));
+        rules.add(factSetCase.getDefaultValue());
+        return new Script(rules);
     }
 
 }
