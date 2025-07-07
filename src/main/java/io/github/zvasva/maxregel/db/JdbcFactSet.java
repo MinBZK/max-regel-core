@@ -135,6 +135,7 @@ public class JdbcFactSet extends MultiPartFactSet {
             case "and" -> sqlPredicate(args.get(0)) + " AND " + sqlPredicate(args.get(1));
             case "or" -> "(" + sqlPredicate(args.get(0)) + " OR " + sqlPredicate(args.get(1)) + ")";
             case "field_eq" -> "(\"" + args.get(0) + "\" = " + sqlPredicate(args.get(1)) + ")";
+            case "field_neq" -> "(\"" + args.get(0) + "\" != " + sqlPredicate(args.get(1)) + ")";
             case "field_gt" -> "(\"" + args.get(0) + "\" > " + sqlPredicate(args.get(1)) + ")";
             case "field_geq" -> "(\"" + args.get(0) + "\" >= " + sqlPredicate(args.get(1)) + ")";
             case "field_lt" -> "(\"" + args.get(0) + "\" < " + sqlPredicate(args.get(1)) + ")";

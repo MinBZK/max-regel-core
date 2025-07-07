@@ -123,10 +123,10 @@ public class Rules {
         return new Join(from(partA), from(partB), fieldA, fieldB);
     }
 
-    public static Predicate<Fact, FactSet> predicate(String variable, String operator, Object value) {
+    public static Comparator predicate(String variable, String operator, Object value) {
         return switch (operator) {
             case "==" -> new Comparator.FieldEq(variable, value);
-            case "!=" -> new Comparator.FieldEq(variable, value).not();
+            case "!=" -> new Comparator.FieldNeq(variable, value);
             case ">" -> new Comparator.FieldGt(variable, value);
             case ">=" -> new Comparator.FieldGeq(variable, value);
             case "<" -> new Comparator.FieldLt(variable, value);
@@ -235,6 +235,10 @@ public class Rules {
             case "aggregate_by" -> new AggregateBy(parse((AstNode) args.get(0)), (List<String>)args.get(1), (String)args.get(2), (Aggregate) parse((AstNode) args.get(3)));
             case "assign_update", "+=" -> new AssignUpdate(args.get(0).toString(), parse((AstNode) args.get(1)));
             case "assign_set", "=" -> new AssignSet(args.get(0).toString(), parse((AstNode) args.get(1)));
+            case "cached" -> new Cached(parse((AstNode) args.get(0)));
+            //case "case" -> new Case(parse((AstNode) args.get(0)), , parse((AstNode) args.get(2)), parse((AstNode) args.get(3)), args.get(4).toString());
+//            case "compare" -> new Compare((String)args.get(0), , (Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
+//            case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
             case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
             case "from" -> new From(args.get(0).toString());
             case "limit" -> new Limit((Long) args.get(1));

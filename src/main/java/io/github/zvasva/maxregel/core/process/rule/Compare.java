@@ -36,7 +36,7 @@ public class Compare extends Zip {
 
     @Override
     public AstNode ast() {
-        return createNode(resultField, getSelectA().ast(), getSelectB().ast(), op);
+        return createNode(resultField, op, getSelectA().ast(), getSelectB().ast());
     }
 
 }

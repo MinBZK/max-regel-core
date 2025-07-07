@@ -97,6 +97,9 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         } else {
             if (x instanceof Number xn) {
                 int sign = NumberComparator.cmp(xn, y);
+                if (signForTrue == 0 && !includeEquals) {
+                    return sign != 0; // not-equals case
+                }
                 return signForTrue == sign || (includeEquals && sign == 0);
             }
             try {
@@ -105,6 +108,10 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
                     return comp.equals(y);
                 }
                 int sign = comp.compareTo(y);
+
+                if (signForTrue == 0 && !includeEquals) {
+                    return sign != 0; // not equals case
+                }
                 return signForTrue == sign || (includeEquals && sign == 0);
             } catch (Exception e) {
                 return false;
@@ -123,6 +130,20 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
 
         public FieldEq(String field, Object y) {
             super("field_eq", field, y, 0, true);
+        }
+    }
+
+    /**
+     * Field not-equals. The FieldEq class is a Predicate implementation that evaluates whether a specified field of
+     * a Fact object is NOT equal to a given value.
+     */
+    public static class FieldNeq extends Comparator {
+        public FieldNeq() {
+            super("field_neq", 0, false);
+        }
+
+        public FieldNeq(String field, Object y) {
+            super("field_neq", field, y, 0, false);
         }
     }
 

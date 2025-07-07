@@ -3,6 +3,7 @@ package io.github.zvasva.maxregel.core.factset;
 
 import io.github.zvasva.maxregel.core.process.UnaryOperation;
 import io.github.zvasva.maxregel.core.process.factoperation.ComputeAge;
+import io.github.zvasva.maxregel.core.process.predicate.Comparator;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldEq;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldGt;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldLt;
@@ -177,6 +178,13 @@ public class FactSetTest {
         assertEquals(1, verboseFilterCount(concatSimpsons, new FieldEq("age", 10)));
         assertEquals(1, verboseFilterCount(simpsons, new FieldEq("age", 10)));
         assertEquals(1, verboseFilterCount(dbSimpsons, new FieldEq("age", 10)));
+    }
+
+    @Test
+    public void filterNeq(){
+        assertEquals(8, verboseFilterCount(concatSimpsons, new Comparator.FieldNeq("age", 10)));
+        assertEquals(8, verboseFilterCount(simpsons, new Comparator.FieldNeq("age", 10)));
+        assertEquals(8, verboseFilterCount(dbSimpsons, new Comparator.FieldNeq("age", 10)));
     }
 
     @Test

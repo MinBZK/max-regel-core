@@ -125,7 +125,7 @@ public class PrettyPrint {
             case "add", "sub", "mul", "div", "pow" ->  prettyArithmetic(ast) + " AS " + args.get(0);
             case "min", "max" -> prettyArithmeticOp(ast) + "["+ pretty(args.get(1)) + ", " + pretty(args.get(2)) + " ]";
             case "aggregate_min", "aggregate_max", "aggregate_sum" -> op.substring(10) + "["+ pretty(args.get(0)) + " ]";
-            case "compare" -> "compare[" + prettyPredicate((String)args.get(3), List.of(args.get(1), args.get(2))) + "] AS " + args.get(0);
+            case "compare" -> "compare[" + prettyPredicate((String)args.get(1), List.of(args.get(2), args.get(3))) + "] AS " + args.get(0);
             case "const" -> Objects.toString(FactSets.value((FactSet) args.get(0)));
             case "join" -> "join[\n" +  pretty((AstNode)args.get(0), indent) + ", " + pretty((AstNode)args.get(1), indent) + "] ON\n" + args.get(2) + " == " + args.get(3) + "\n]";
             case "select", "count", "limit", "name_prefix", "print" -> PrettyPrint.defaultPretty(ast, indent);
@@ -168,6 +168,7 @@ public class PrettyPrint {
             case "and" -> prettyPredicate(args.get(0)) + " AND " + prettyPredicate(args.get(1));
             case "or" -> "(" + prettyPredicate(args.get(0)) + " OR " + prettyPredicate(args.get(1)) + ")";
             case "field_eq" -> "(" + prettyPredicate(args.get(0)) + " == " + pretty(args.get(1)) + ")";
+            case "field_neq" -> "(" + prettyPredicate(args.get(0)) + " != " + pretty(args.get(1)) + ")";
             case "field_gt" -> "(" + prettyPredicate(args.get(0)) + " > " + pretty(args.get(1)) + ")";
             case "field_geq" -> "(" + prettyPredicate(args.get(0)) + " >= " + pretty(args.get(1)) + ")";
             case "field_lt" -> "(" + prettyPredicate(args.get(0)) + " < " + pretty(args.get(1)) + ")";
