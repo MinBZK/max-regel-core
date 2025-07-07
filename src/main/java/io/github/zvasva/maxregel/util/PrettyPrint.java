@@ -38,7 +38,7 @@ public class PrettyPrint {
     }
 
     public static String pretty(Object object, String indent) {
-        return switch (object) {
+        return object == null ? "NULL" : switch (object) {
             case Rule rule -> pretty(rule);
             case AstNode node -> pretty(node, indent);
             case FactSet fs -> pretty(fs);

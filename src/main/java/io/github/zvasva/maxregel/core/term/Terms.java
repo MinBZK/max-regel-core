@@ -11,6 +11,29 @@ public class Terms {
     /**
      * Get first value of first field.
      * @param term the container
+     * @return a key or null
+     */
+    public static String firstKey(Term term){
+        return firstKey(term, null);
+    }
+
+    /**
+     * Get first key of first field.
+     * @param term the container
+     * @param defaultKey the key in case there are no fields or the term is null
+     * @return a key
+     */
+    public static String firstKey(Term term, String defaultKey){
+        if(term == null) {
+            return defaultKey;
+        }
+        List<String> keys = term.keys();
+        return keys.isEmpty() ? defaultKey : keys.getFirst();
+    }
+
+    /**
+     * Get first value of first field.
+     * @param term the container
      * @return a value or null
      */
     public static Object first(Term term){

@@ -9,6 +9,7 @@ import io.github.zvasva.maxregel.core.process.predicate.Exists;
 import io.github.zvasva.maxregel.core.process.predicate.Predicate;
 import io.github.zvasva.maxregel.core.process.predicate.Predicates;
 import io.github.zvasva.maxregel.core.term.Fact;
+import io.github.zvasva.maxregel.core.term.MapTerm;
 import io.github.zvasva.maxregel.core.term.Term;
 import io.github.zvasva.maxregel.util.Collections;
 import io.github.zvasva.maxregel.util.Iters;
@@ -124,13 +125,17 @@ public class Rules {
     }
 
     public static Comparator predicate(String variable, String operator, Object value) {
+        return unboundPredicate(operator).bind(FactSets.create(MapTerm.of(variable, value)));
+    }
+
+    public static Comparator unboundPredicate(String operator) {
         return switch (operator) {
-            case "==" -> new Comparator.FieldEq(variable, value);
-            case "!=" -> new Comparator.FieldNeq(variable, value);
-            case ">" -> new Comparator.FieldGt(variable, value);
-            case ">=" -> new Comparator.FieldGeq(variable, value);
-            case "<" -> new Comparator.FieldLt(variable, value);
-            case "<=" -> new Comparator.FieldLeq(variable, value);
+            case "==" -> new Comparator.FieldEq();
+            case "!=" -> new Comparator.FieldNeq();
+            case ">" -> new Comparator.FieldGt();
+            case ">=" -> new Comparator.FieldGeq();
+            case "<" -> new Comparator.FieldLt();
+            case "<=" -> new Comparator.FieldLeq();
             default -> throw new IllegalArgumentException("Unsupported operator: " + operator);
         };
     }
@@ -237,8 +242,12 @@ public class Rules {
             case "assign_set", "=" -> new AssignSet(args.get(0).toString(), parse((AstNode) args.get(1)));
             case "cached" -> new Cached(parse((AstNode) args.get(0)));
             //case "case" -> new Case(parse((AstNode) args.get(0)), , parse((AstNode) args.get(2)), parse((AstNode) args.get(3)), args.get(4).toString());
-//            case "compare" -> new Compare((String)args.get(0), , (Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
-//            case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
+            case "compare" -> new Compare(args.get(0).toString(), unboundPredicate((String)args.get(1)), parse((AstNode) args.get(2)), parse((AstNode) args.get(3)));
+            case "concat" -> new Concat(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)));
+            case "consolidate" -> new Consolidate(); // todo: select?
+            case "const" -> new Const((FactSet) args.get(0));
+            case "count" -> new Count(parse((AstNode) args.get(0)), (String) args.get(1));
+
             case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
             case "from" -> new From(args.get(0).toString());
             case "limit" -> new Limit((Long) args.get(1));

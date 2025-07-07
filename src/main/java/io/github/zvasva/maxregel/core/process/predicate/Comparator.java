@@ -6,6 +6,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 import io.github.zvasva.maxregel.core.process.MaxRegelException;
 import io.github.zvasva.maxregel.core.process.rule.Rule;
 import io.github.zvasva.maxregel.core.term.Fact;
+import io.github.zvasva.maxregel.core.term.Term;
 import io.github.zvasva.maxregel.core.term.Terms;
 import io.github.zvasva.maxregel.util.NumberComparator;
 
@@ -61,8 +62,16 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
     }
 
     @Override
-    public Predicate<Fact, FactSet> bind(FactSet parameterData) {
+    public Comparator bind(FactSet parameterData) {
+        if(field == null || y == null) {
+            // No rule to bind, just first key and value
+            Term term = FactSets.firstTerm(parameterData);
+            String fieldConcrete = Terms.firstKey(term);
+            Object yConcrete = Terms.first(term);
+            return new Comparator(op, fieldConcrete, yConcrete, signForTrue, includeEquals);
+        }
         if(y instanceof Rule r){
+            // Use the rule to get a value to compare to
             Object yConcrete = FactSets.value(r.apply(parameterData));
             return new Comparator(op, field, yConcrete, signForTrue, includeEquals);
         }
