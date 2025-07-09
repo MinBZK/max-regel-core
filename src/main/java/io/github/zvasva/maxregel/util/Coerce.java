@@ -5,6 +5,8 @@ import java.util.Map;
 
 /**
  * Convert values into other types. Like casting but, more fuzzy... JS fuzzy.
+ * This is useful for converting values from JSON or other sources.
+ *
  * @author Arvid Halma
  */
 public class Coerce {
@@ -242,19 +244,19 @@ public class Coerce {
     }
 
     public static Integer get(Map map, Object key, Integer defaultValue){
-        return asInteger(get(map, key, defaultValue));
+        return asInteger(get(map, key, (Object) defaultValue));
     }
 
     public static Double get(Map map, Object key, Double defaultValue){
-        return asDouble(get(map, key, defaultValue));
+        return asDouble(get(map, key, (Object) defaultValue));
     }
 
     public static String get(Map map, Object key, String defaultValue){
-        return asString(get(map, key, defaultValue));
+        return asString(get(map, key, (Object) defaultValue));
     }
 
     public static Boolean get(Map map, Object key, Boolean defaultValue){
-        return asBoolean(get(map, key, defaultValue));
+        return asBoolean(get(map, key, (Object) defaultValue));
     }
 
 }
