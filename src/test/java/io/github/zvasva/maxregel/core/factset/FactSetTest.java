@@ -188,6 +188,14 @@ public class FactSetTest {
     }
 
     @Test
+    public void filterNotNeq(){
+        // not not = eq
+        assertEquals(1, verboseFilterCount(concatSimpsons, new Comparator.FieldNeq("age", 10).not()));
+        assertEquals(1, verboseFilterCount(simpsons, new Comparator.FieldNeq("age", 10).not()));
+        assertEquals(1, verboseFilterCount(dbSimpsons, new Comparator.FieldNeq("age", 10).not()));
+    }
+
+    @Test
     public void filterAnd(){
         assertEquals(2, verboseFilterCount(concatSimpsons, new FieldGt("age", 20).and(new FieldEq("hair", "short"))));
         assertEquals(2, verboseFilterCount(simpsons, new FieldGt("age", 20).and(new FieldEq("hair", "short"))));
@@ -300,7 +308,7 @@ public class FactSetTest {
     
 
     @Test
-    public void prettyHomogeneous(){
+    public void prettyPrintHeterogeneousFactSet(){
         System.out.println(PrettyPrint.pretty(simpsons));
 
         FactSet heterogeneous = new SinglePartFactSet(List.of(
