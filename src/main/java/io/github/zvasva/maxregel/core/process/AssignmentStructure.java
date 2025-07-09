@@ -8,6 +8,11 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * A data structure for dependency checking. It holds assigned variables and their corresponding rules.
+ *
+ * @author Arvid Halma
+ */
 public class AssignmentStructure {
     private final int maxIterations;
     private int epoch;

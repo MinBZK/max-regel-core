@@ -25,11 +25,17 @@ public interface BinaryOperation<T> {
 
     /**
      * Arbitrary meta data.
-     * @return
+     * @return a map of key-value pairs
      */
     Map<String, Object> info();
 
 
+    /**
+     * Apply the operation to two arguments.
+     * @param a first argument
+     * @param b second argument
+     * @return result of the operation
+     */
     T apply(T a, T b);
 
     /**
@@ -38,6 +44,11 @@ public interface BinaryOperation<T> {
      */
     AstNode ast();
 
+    /**
+     * Convert this operation to a plain Java {@link BinaryOperator}.
+     * This is useful for passing the operation to a Java function that expects a {@link BinaryOperator}.
+     * @return a plain Java binary operator
+     */
     default BinaryOperator<T> asJavaBinaryOperation() {
         return BinaryOperation.this::apply;
     }
@@ -45,6 +56,7 @@ public interface BinaryOperation<T> {
     /**
      * Create an anonymous {@link BinaryOperation} (no op() name, no meaningful AST.
      * @param javaOp the plain Java version of the function
+     * @param <T> The type of the arguments and result
      * @return a wrapped java function
      */
     static <T> BinaryOperation<T> fromJavaBinaryOperator(BinaryOperator<T> javaOp) {

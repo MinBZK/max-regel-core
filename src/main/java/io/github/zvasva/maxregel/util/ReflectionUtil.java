@@ -14,6 +14,9 @@ import static io.github.zvasva.maxregel.util.Coerce.*;
  */
 public class ReflectionUtil {
 
+    /**
+     * The means of retrieving values from an object.
+     */
     public enum ValueSource {GETTER, METHOD, FIELD, ANY}
 
     private static final Map<Class<?>, Map<String, Field>> DECLARED_FIELD_CACHE = new ConcurrentHashMap<>();
