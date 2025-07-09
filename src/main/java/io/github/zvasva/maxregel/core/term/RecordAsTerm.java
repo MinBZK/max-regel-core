@@ -5,13 +5,16 @@ import io.github.zvasva.maxregel.util.ReflectionUtil;
 import java.util.List;
 
 /**
- * RecordAsTerm is like {@link ObjectAsTerm}, but uses knowledge of getter names (in particular foo() instead of getFoo())
+ * RecordAsTerm is like {@link ObjectAsTerm},
+ * but uses knowledge of getter names (in particular foo() instead of getFoo())
  * to speed up getting and checking terms using reflection.
+ *
  * @author Arvid Halma
  */
 public class RecordAsTerm extends AbstractTerm {
     protected final Object obj;
-    private int hash = Integer.MAX_VALUE;
+
+    private int hash = 0xCAFEBABE; // use a non-zero value to indicate uninitialized
 
     public RecordAsTerm(Object obj) {
         this.obj = obj;
@@ -34,8 +37,8 @@ public class RecordAsTerm extends AbstractTerm {
 
     @Override
     public int hashCode() {
-        if(hash == Integer.MAX_VALUE)
-            this.hash = Terms.hashCode(this); // cache
+        if(hash == 0xCAFEBABE)
+            this.hash = Terms.hashCode(this); // the hash is calculated on demand and cached
         return hash;
     }
 }

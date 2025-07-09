@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 
 /**
  * Utility class for generating pretty-printed representations of predicates and fact sets.
+ *
+ * @author Arvid Halma
  */
 public class PrettyPrint {
 

@@ -2,8 +2,15 @@ package io.github.zvasva.maxregel.core.term;
 
 import java.util.List;
 
-/** A term is a basic domain specific value. An immutable container of data.
- * The most important value of a [io.github.zvazva.core.term.Fact].
+/**
+ * A term is the fundamental data structure used to represent information.
+ * It is an immutable container of data with key-value pairs (an "object").
+ * Since this is the container for domain specific values, it makes it
+ * the most important field of a {@link Fact}.
+ *
+ * Specific implementations of Term may use different data structures.
+ * For example a {@link java.util.Map} for more dynamic use-cases, or plain objects for stricter scenarios.
+ *
  * @author Arvid Halma
  */
 public interface Term {

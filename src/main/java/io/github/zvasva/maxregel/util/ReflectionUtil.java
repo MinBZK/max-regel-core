@@ -9,6 +9,7 @@ import static io.github.zvasva.maxregel.util.Coerce.*;
 
 /**
  * Utility class providing various methods for working with reflection to inspect and manipulate objects.
+ *
  * @author Arvid Halma
  */
 public class ReflectionUtil {

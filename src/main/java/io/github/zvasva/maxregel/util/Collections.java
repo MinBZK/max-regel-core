@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * Helper functions for {@link Collection}s.
+ *
  * @author Arvid Halma
  */
 public class Collections {
@@ -110,7 +111,7 @@ public class Collections {
     }
 
     /**
-     * The (asymetric) difference between two collection. All elements of the second collection are removed from the first.
+     * The (asymmetric) difference between two collection. All elements of the second collection are removed from the first.
      * @param as first collection
      * @param bs second collection
      * @return new set

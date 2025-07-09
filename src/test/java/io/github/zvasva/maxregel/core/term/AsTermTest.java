@@ -1,6 +1,5 @@
 package io.github.zvasva.maxregel.core.term;
 
-import io.github.zvasva.maxregel.core.term.*;
 import io.github.zvasva.maxregel.util.ReflectionUtil;
 import org.junit.jupiter.api.Test;
 

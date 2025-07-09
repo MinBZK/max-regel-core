@@ -1,8 +1,5 @@
 package io.github.zvasva.maxregel.core.term;
 
-import io.github.zvasva.maxregel.core.term.MapTerm;
-import io.github.zvasva.maxregel.core.term.Term;
-import io.github.zvasva.maxregel.core.term.Terms;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;

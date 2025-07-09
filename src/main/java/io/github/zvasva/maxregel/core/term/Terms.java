@@ -5,6 +5,8 @@ import java.util.*;
 
 /**
  * Utility class for operating on {@link Term} objects.
+ *
+ * @author Arvid Halma
  */
 public class Terms {
 

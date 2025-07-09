@@ -12,6 +12,8 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 
 /**
  * A fact is a container for a {@link Term}, with extra metadata.
+ *
+ * @author Arvid Halma
  */
 public class Fact {
 

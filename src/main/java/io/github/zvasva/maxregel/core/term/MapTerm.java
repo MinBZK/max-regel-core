@@ -10,11 +10,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 
 /**
  * A term backed by a {@link Map}.
+ *
+ * @author Arvid Halma
  */
 public class MapTerm extends AbstractTerm {
 
     private final Map<String, ?> map;
-    private int hash = Integer.MAX_VALUE;
+    private int hash = 0xCAFEBABE; // use a non-zero value to indicate uninitialized
 
     public MapTerm(Map<String, ?> map) {
         this.map = requireNonNullArg(map, "map");

@@ -12,6 +12,7 @@ import static java.lang.String.format;
 
 /**
  * Render a table in text.
+ *
  * @author Arvid Halma
  */
 public final class TablePrinter {
