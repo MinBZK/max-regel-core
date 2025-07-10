@@ -46,6 +46,7 @@ public interface FactSet extends Iterable<Fact> {
 
     /**
      * Add new function in addition to the existing {@link #factOperation()}, that takes the original fact and changes it.
+     * @param operation the operation to add
      * @return a new FactSet (shallow) copy
      */
     default FactSet addFactOperation(UnaryOperation<Fact> operation){
@@ -85,7 +86,7 @@ public interface FactSet extends Iterable<Fact> {
 
     /**
      * Overwrite the part names contained within the {@link FactSet}.
-     *
+     * @param newName the new name for the part.
      * @return the factset (shallow) copy with a new name
      */
     FactSet setPart(String newName);

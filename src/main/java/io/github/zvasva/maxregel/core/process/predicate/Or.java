@@ -11,12 +11,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * Disjunction: combines two predicates and returns true if at least one of the predicates is true.
  *
  * @param <T> The type of objects that this predicate tests.
+ * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
  * @author Arvid Halma
  */
-public class Or<T, P> extends AbstractPredicate<T, P> {
-    private final Predicate<T, P> a, b;
+public class Or<T, B> extends AbstractPredicate<T, B> {
+    private final Predicate<T, B> a, b;
 
-    public Or(Predicate<T, P> a, Predicate<T, P> b) {
+    public Or(Predicate<T, B> a, Predicate<T, B> b) {
         this.a = requireNonNullArg(a, "a");
         this.b = requireNonNullArg(b, "b");
     }
@@ -33,7 +34,7 @@ public class Or<T, P> extends AbstractPredicate<T, P> {
 
 
     @Override
-    public Predicate<T, P> bind(P parameterData) {
+    public Predicate<T, B> bind(B parameterData) {
         return new Or<>(a.bind(parameterData), b.bind(parameterData));
     }
 }

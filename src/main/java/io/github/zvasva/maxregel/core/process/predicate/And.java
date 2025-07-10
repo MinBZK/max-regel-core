@@ -10,12 +10,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 /**
  * Conjunction: combines two predicates and returns true if both predicates are true.
  * @param <T> The type of objects that this predicate tests.
+ * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
  * @author Arvid Halma
  */
-public class And<T, P> extends AbstractPredicate<T, P> {
-    private final Predicate<T, P> a, b;
+public class And<T, B> extends AbstractPredicate<T, B> {
+    private final Predicate<T, B> a, b;
 
-    public And(Predicate<T, P> a, Predicate<T, P> b) {
+    public And(Predicate<T, B> a, Predicate<T, B> b) {
         this.a = requireNonNullArg(a, "a");
         this.b = requireNonNullArg(b, "b");
     }
@@ -31,7 +32,7 @@ public class And<T, P> extends AbstractPredicate<T, P> {
     }
 
     @Override
-    public Predicate<T, P> bind(P parameterData) {
+    public Predicate<T, B> bind(B parameterData) {
         return new And<>(a.bind(parameterData), b.bind(parameterData));
     }
 }

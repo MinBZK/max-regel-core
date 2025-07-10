@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class AddFactInfo extends AbstractRule {
 
-    public Map<String, Object> newInfo;
+    private Map<String, Object> newInfo;
 
     public AddFactInfo(Map<String, Object> newInfo) {
         this.newInfo = newInfo;

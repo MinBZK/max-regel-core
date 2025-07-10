@@ -126,8 +126,9 @@ public class SinglePartFactSet extends AbstractFactSet {
 
     @Override
     public FactSet setPart(String newName) {
+        // Note that this does not change the fieldIndex, so it will still return facts with the old name.
+        // Changes in the part name are mitigated when filtering. That is why this index exists in the first place.
         return new SinglePartFactSet(facts, newName, distinct, factOperation, fieldIndex);
-//        return new SinglePartFactSet(facts, newName, distinct, factOperation, new ConcurrentHashMap<>());
     }
 
     @Override

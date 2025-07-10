@@ -19,17 +19,31 @@ import java.util.stream.Stream;
  * For example:  isEmpty() can use the more fundamental iterator() method to find out if there is anything to iterate at all.
  * <p>
  * This class provides default implementations for various methods such as any, all, stream, size, isEmpty, union... and equals, hashCode and toString.
+ *
  * @author Arvid Halma
  */
 public abstract class AbstractFactSet implements FactSet {
 
+    /**
+     * The operation that is applied to each Fact in this FactSet.
+     * It is used to transform the facts when they are retrieved.
+     */
     protected UnaryOperation<Fact> factOperation = new UnaryOperation.Identity<>();
 
+    /**
+     * Get the fact operation that is applied to each Fact in this FactSet.
+     * @return the fact operation
+     */
     @Override
     public UnaryOperation<Fact> factOperation() {
         return factOperation;
     }
 
+    /**
+     * Remove a part from this FactSet.
+     * @param part the name of the section of facts to remove.
+     * @return a new FactSet.
+     */
     @Override
     public FactSet remove(String part) {
         if(!parts().contains(part))
@@ -38,6 +52,10 @@ public abstract class AbstractFactSet implements FactSet {
         return new MultiPartFactSet(remainingParts, factOperation());
     }
 
+    /**
+     * Retrieve all facts as a Stream.
+     * @return the facts contained.
+     */
     @Override
     public Stream<Fact> stream() {
         return Iters.stream(this);

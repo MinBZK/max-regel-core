@@ -50,6 +50,7 @@ public interface UnaryOperation<T> {
     /**
      * Wrap a {@link UnaryOperator} (plain Java version) as an {@link UnaryOperation}
      * @param operator the function: T -> T
+     * @param <T> the argument and result type
      * @return new operation
      */
     static <T> UnaryOperation<T> of(UnaryOperator<T> operator) {

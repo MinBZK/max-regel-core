@@ -11,12 +11,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * A predicate that wraps another predicate and negates its result.
  *
  * @param <T> The type of objects that this predicate tests.
+ * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
  * @author Arvid Halma
  */
-public class Not<T, P> extends AbstractPredicate<T, P> {
-    private final Predicate<T, P> p;
+public class Not<T, B> extends AbstractPredicate<T, B> {
+    private final Predicate<T, B> p;
 
-    public Not(Predicate<T, P> p) {
+    public Not(Predicate<T, B> p) {
         this.p = requireNonNullArg(p, "p");
     }
 
@@ -31,7 +32,7 @@ public class Not<T, P> extends AbstractPredicate<T, P> {
     }
 
     @Override
-    public Predicate<T, P> bind(P parameterData) {
+    public Predicate<T, B> bind(B parameterData) {
         return new Not<>(p.bind(parameterData));
     }
 }

@@ -21,6 +21,7 @@ public interface Rule extends UnaryOperation<FactSet> {
      *
      * @param facts the input facts
      * @param tracer the tracer, that is called on the update (the new resulting facts after apply)
+     * @param assignmentStructure the assignment structure, that is used to checking dependencies
      * @return a tuple of the total and update facts.
      */
     default RuleResult apply(FactSet facts, Tracer tracer, AssignmentStructure assignmentStructure) {
