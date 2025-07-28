@@ -48,6 +48,20 @@ public class FactSetTest {
         MapTerm.of("name", "Krusty", "hair", "middle", "weight", 200, "age", 45, "gender", "male")
     );
 
+    public static final FactSet lastnames = FactSets.create("lastnames",
+        MapTerm.of("first_name", "Homer", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Marge", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Bart", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Krusty", "last_name", "the Clown"),
+        MapTerm.of("first_name", "Lisa", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Maggie", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Abe", "last_name", "Simpson"),
+        MapTerm.of("first_name", "Selma", "last_name", "Bouvier"),
+        MapTerm.of("first_name", "Ned", "last_name", "Flanders"),
+        MapTerm.of("first_name", "Maude", "last_name", "Flanders"),
+        MapTerm.of("first_name", "Ralph", "last_name", "Wiggum")
+    );
+
     public static final FactSet simpsonsPart1 = FactSets.create("simpsonsPart1",
         MapTerm.of("name", "Homer", "hair", "short", "weight", 250, "age", 36, "gender", "male"),
         MapTerm.of("name", "Marge", "hair", "long", "weight", 150, "age", 35, "gender", "female"),
