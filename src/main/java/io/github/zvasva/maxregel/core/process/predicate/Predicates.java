@@ -59,6 +59,19 @@ public class Predicates {
         };
     }
 
+
+    public static Predicate<FactSet, ?> parse2(AstNode node) {
+        if (node == null) {
+            return null;
+        }
+
+        final List<?> args = node.args();
+        return switch (node.op()) {
+            case "exits" -> new Exists();
+            default -> throw new IllegalArgumentException("Unsupported predicate function name: " + node.op());
+        };
+    }
+
     /**
      * Evaluates always to true, independent of the argument.
      * @param <T> argument type

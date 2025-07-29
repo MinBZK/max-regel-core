@@ -33,7 +33,7 @@ public class ReturnIf extends AbstractRule {
 
     @Override
     public String op() {
-        return "returnif";
+        return "return_if";
     }
 
     @Override

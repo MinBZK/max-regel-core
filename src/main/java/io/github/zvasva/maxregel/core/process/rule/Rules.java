@@ -3,6 +3,7 @@ package io.github.zvasva.maxregel.core.process.rule;
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
 import io.github.zvasva.maxregel.core.process.AstNode;
+import io.github.zvasva.maxregel.core.process.BinaryOperation;
 import io.github.zvasva.maxregel.core.process.MaxRegelException;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator;
 import io.github.zvasva.maxregel.core.process.predicate.Exists;
@@ -11,6 +12,7 @@ import io.github.zvasva.maxregel.core.process.predicate.Predicates;
 import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.MapTerm;
 import io.github.zvasva.maxregel.core.term.Term;
+import io.github.zvasva.maxregel.util.Coerce;
 import io.github.zvasva.maxregel.util.Collections;
 import io.github.zvasva.maxregel.util.Iters;
 import io.github.zvasva.maxregel.util.PrettyPrint;
@@ -18,7 +20,6 @@ import io.github.zvasva.maxregel.util.PrettyPrint;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static java.util.stream.Collectors.toCollection;
@@ -142,6 +143,20 @@ public class Rules {
         };
     }
 
+    public static BinaryOperation<Fact> binop(AstNode node) {
+        List<?> args = node.args();
+        return switch (node.op()) {
+            case "add" -> new Arithmetic.Add((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "sub" -> new Arithmetic.Sub((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "mul" -> new Arithmetic.Mul((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "div" -> new Arithmetic.Div((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "pow" -> new Arithmetic.Pow((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "min" -> new Arithmetic.Min((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            case "max" -> new Arithmetic.Max((String)args.get(0), parse((AstNode) args.get(1)), parse((AstNode) args.get(2))).getOperation();
+            default -> throw new IllegalArgumentException("Unsupported binary operation: " + node.op());
+        };
+    }
+
     public static Rule add(String partA, String fieldA, String partB, String fieldB) {
         return new Arithmetic.Add("x", from(partA).then(select(fieldA)), from(partB).then(select(fieldB)));
     }
@@ -234,6 +249,8 @@ public class Rules {
         }
 
         final List<?> args = node.args();
+        //Function<Integer, Rule> a = i ->  parse((AstNode) args.get(i));
+
         return switch (node.op()) {
             case "aggregate_count" -> new Aggregate.Count(parse((AstNode) args.get(0)));
             case "aggregate_sum" -> new Aggregate.Sum(parse((AstNode) args.get(0)));
@@ -249,14 +266,24 @@ public class Rules {
             case "consolidate" -> new Consolidate(); // todo: select?
             case "const" -> new Const((FactSet) args.get(0));
             case "count" -> new Count(parse((AstNode) args.get(0)), (String) args.get(1));
-
-            case "filter" -> new Filter((Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
+            case "filter" -> new Filter(parse((AstNode) args.get(0)), (Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
+            // todo factsetcase
+            case "flatmap" -> new FlatMap(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)));
             case "from" -> new From(args.get(0).toString());
+            case "identity" -> new Identity();
+            case "join" -> new Join(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)), (String)args.get(2), (String)args.get(3));
             case "limit" -> new Limit((Long) args.get(1));
+            case "merge" -> new Merge(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)));
             case "name_prefix" -> new NamePrefix(args.get(1).toString());
+            case "once" -> new Once(parse((AstNode) args.get(0)));
+            case "print" -> new Print(parse((AstNode) args.get(0)), (String) args.get(1));
             case "remove" -> new Remove(args.get(0).toString());
-            case "then" -> new Then(Rules.parse((AstNode) args.get(0)), Rules.parse((AstNode) args.get(1)));
+            case "return_if" -> new ReturnIf(parse((AstNode) args.get(0)), (Predicate<FactSet, FactSet>) Predicates.parse2((AstNode) args.get(1)), parse((AstNode) args.get(2)));
             case "script" -> new Script(args.stream().map(xs -> Rules.parse((AstNode) xs)).toList());
+            case "select_fields" -> new SelectFields(parse((AstNode) args.get(0)), (List<String>) args.get(1));
+            case "sort" -> new Sort(parse((AstNode) args.get(0)), args.get(1).toString(), Coerce.asBoolean(args.get(2)));
+            case "then" -> new Then(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)));
+            case "zip" -> new Zip(binop((AstNode) args.get(0)), parse((AstNode) args.get(1)), parse((AstNode) args.get(2)));
 
             default -> throw new MaxRegelException("Unsupported rule function name: " + node.op());
         };

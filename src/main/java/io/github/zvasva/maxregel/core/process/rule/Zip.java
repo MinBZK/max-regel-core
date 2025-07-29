@@ -36,6 +36,10 @@ public class Zip extends AbstractRule {
         return selectB;
     }
 
+    public BinaryOperation<Fact> getOperation() {
+        return operation;
+    }
+
     @Override
     public String op() {
         return "zip";
