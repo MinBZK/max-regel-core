@@ -348,8 +348,36 @@ public class RuleTest {
         assertEquals(expected, merged);
     }
 
+
+
     @Test
-    public void testAddTwoFields(){
+    public void testSubTwoFields(){
+        FactSet A = FactSets.create("revenue",
+                MapTerm.of("r", 5, "project", "A"),
+                MapTerm.of("r", 4, "project", "B"),
+                MapTerm.of("r", 3, "project", "C")
+        );
+
+        FactSet B = FactSets.create( "expense",
+                MapTerm.of("e", 1),
+                MapTerm.of("e", 2)
+        );
+
+        FactSet facts = A.union(B);
+        print(facts);
+        FactSet merged = new Arithmetic.Sub("x", from("revenue"), from("expense")).apply(facts);
+        print(merged);
+
+        FactSet expected = FactSets.create(
+                MapTerm.of("x", 4.0),
+                MapTerm.of("x", 2.0)
+        );
+
+        assertEquals(expected, merged);
+    }
+
+    @Test
+    public void testAddTwoFieldsStrange(){
         FactSet A = FactSets.create("first",
                 MapTerm.of("A1", 1),
                 MapTerm.of("B1", 2),
@@ -362,6 +390,7 @@ public class RuleTest {
                 );
 
         FactSet facts = A.union(B);
+        print(facts);
         FactSet merged = new Arithmetic.Add("x", from("first"), from("second")).apply(facts);
         print(merged);
 
