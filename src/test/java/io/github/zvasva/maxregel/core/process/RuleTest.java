@@ -523,6 +523,15 @@ public class RuleTest {
         assertEquals(2, y.size());
     }
 
+
+    @Test
+    public void testAggregateByMaxAge(){
+
+        FactSet y = new AggregateBy("gender", "age", new Aggregate.Max()).apply(simpsons);
+        print(y);
+        assertEquals(List.of(70, 41), FactSets.getField(y, "aggregate_max_age"));
+    }
+
     @Test
     public void testFlatMap(){
 

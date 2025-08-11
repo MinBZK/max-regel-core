@@ -60,7 +60,7 @@ public class AggregateBy extends AbstractRule {
             if(!groups.containsKey(key)){
                 groups.put(key, new ArrayList<>());
             }
-            groups.get(key).add(fact);
+            groups.get(key).add(new Fact(MapTerm.of(valueField, fact.get(valueField))));
         });
         String valueFieldName = aggregate.op() + "_" + valueField; // e.g. aggregate_max_age
         return new SinglePartFactSet(groups.entrySet().stream().map(entry -> {
