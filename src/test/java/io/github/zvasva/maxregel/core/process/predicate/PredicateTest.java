@@ -3,7 +3,6 @@ package io.github.zvasva.maxregel.core.process.predicate;
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
 import io.github.zvasva.maxregel.core.process.MaxRegelException;
-import io.github.zvasva.maxregel.core.process.predicate.*;
 import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.MapTerm;
 import org.junit.jupiter.api.Test;
@@ -19,23 +18,27 @@ import static org.junit.jupiter.api.Assertions.*;
  * against Fact objects with various field values using the Predicate predicates.
  */
 public class PredicateTest {
-    
+
     static Comparator eq(String field, Object value) {
         return new Comparator.FieldEq(field, value);
-    }    
+    }
+
     static Comparator gt(String field, Object value) {
         return new Comparator.FieldGt(field, value);
-    }    
+    }
+
     static Comparator geq(String field, Object value) {
         return new Comparator.FieldGeq(field, value);
-    }    
+    }
+
     static Comparator lt(String field, Object value) {
         return new Comparator.FieldLt(field, value);
-    }    
+    }
+
     static Comparator leq(String field, Object value) {
         return new Comparator.FieldLeq(field, value);
     }
-    
+
     @Test
     void testFieldEqPredicate() {
         Fact fact = new Fact(MapTerm.of("name", "Douglas", "age", 42));
@@ -61,7 +64,7 @@ public class PredicateTest {
         Predicate<Fact, FactSet> andPredicate = namePredicate.and(agePredicate);
 
         assertTrue(andPredicate.test(fact));
-        
+
         Predicate wrongAgePredicate = eq("age", 25);
         Predicate<Fact, FactSet> andPredicateFalse = namePredicate.and(wrongAgePredicate);
 
@@ -69,39 +72,39 @@ public class PredicateTest {
     }
 
     @Test
-    void testAllPredicate() {
+    void testAndListPredicate() {
         Fact fact = new Fact(MapTerm.of("name", "Douglas", "age", 42));
         Predicate namePredicate = eq("name", "Douglas");
         Predicate agePredicate = eq("age", 42);
 
-        Predicate<Fact, FactSet> allPredicate = Predicates.all(namePredicate, agePredicate);
+        Predicate<Fact, FactSet> allPredicate = Predicates.and(namePredicate, agePredicate);
 
         assertTrue(allPredicate.test(fact));
-        
+
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> PredicateFalse = Predicates.all((Predicate) allPredicate, wrongAgePredicate);
+        Predicate<Fact, FactSet> PredicateFalse = Predicates.and((Predicate) allPredicate, wrongAgePredicate);
 
         assertFalse(PredicateFalse.test(fact));
     }
-    
+
     @Test
-    void testAnyPredicate() {
+    void testOrListPredicate() {
         Fact fact = new Fact(MapTerm.of("name", "Douglas", "age", 42));
         Predicate namePredicate = eq("name", "Douglas");
         Predicate agePredicate = eq("age", 43);
 
-        Predicate<Fact, FactSet> allPredicate = Predicates.any(namePredicate, agePredicate);
+        Predicate<Fact, FactSet> allPredicate = Predicates.or(namePredicate, agePredicate);
 
         assertTrue(allPredicate.test(fact));
-        
+
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> PredicateFalse = Predicates.any(agePredicate, wrongAgePredicate);
+        Predicate<Fact, FactSet> PredicateFalse = Predicates.or(agePredicate, wrongAgePredicate);
 
         assertFalse(PredicateFalse.test(fact));
     }
 
     @Test
-    void testOrPredicate() {
+    void testOrListPredicate2() {
         Fact fact = new Fact(MapTerm.of("name", "Douglas", "age", 42));
         Predicate namePredicate = eq("name", "Douglas");
         Predicate wrongNamePredicate = eq("name", "John");
@@ -109,7 +112,7 @@ public class PredicateTest {
         Predicate<Fact, FactSet> orPredicate = namePredicate.or(wrongNamePredicate);
 
         assertTrue(orPredicate.test(fact));
-        
+
         Predicate wrongAgePredicate = eq("age", 25);
         Predicate<Fact, FactSet> orBothWrongPredicate = wrongNamePredicate.or(wrongAgePredicate);
 
@@ -124,7 +127,7 @@ public class PredicateTest {
         Predicate<Fact, FactSet> notPredicate = namePredicate.not();
 
         assertFalse(notPredicate.test(fact));
-        
+
         Predicate wrongNamePredicate = eq("name", "John");
         Predicate<Fact, FactSet> notWrongNamePredicate = wrongNamePredicate.not();
 
@@ -150,7 +153,6 @@ public class PredicateTest {
 
         assertFalse(complexNegatedPredicate.test(fact));
     }
-
 
 
     @Test
@@ -258,4 +260,25 @@ public class PredicateTest {
         assertFalse(concreteCmp.test(fact)); // 42 IS NOT greater 30
     }
 
+    @Test
+    void testAnyPredicate() {
+        FactSet facts = FactSets.create(
+                MapTerm.of("name", "Douglas", "age", 42),
+                MapTerm.of("name", "Mary", "age", 45)
+        );
+
+        assertTrue(new Any(gt("age", 43)).test(facts));
+        assertFalse(new Any(gt("age", 50)).test(facts));
+    }
+
+    @Test
+    void testAllPredicate() {
+        FactSet facts = FactSets.create(
+                MapTerm.of("name", "Douglas", "age", 42),
+                MapTerm.of("name", "Mary", "age", 45)
+        );
+
+        assertTrue(new All(gt("age", 40)).test(facts));
+        assertFalse(new All(gt("age", 43)).test(facts));
+    }
 }

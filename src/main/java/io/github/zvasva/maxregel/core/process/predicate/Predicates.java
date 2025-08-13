@@ -22,18 +22,18 @@ public class Predicates {
      * @param <T> the argument type
      */
     @SafeVarargs
-    public static <T> Predicate<T, ?> all(Predicate<T, Object> ... predicates) {
+    public static <T> Predicate<T, ?> and(Predicate<T, Object> ... predicates) {
         return Arrays.stream(predicates).reduce(new True<>(), Predicate::and);
     }
 
     /**
-     * Check if some predicates hold
+     * Check if at least some predicate hold
      * @param predicates all predicates to check
      * @return a single predicate that combines them
      * @param <T> the argument type
      */
     @SafeVarargs
-    public static <T> Predicate<T, ?> any(Predicate<T, Object> ... predicates) {
+    public static <T> Predicate<T, ?> or(Predicate<T, Object> ... predicates) {
         return Arrays.stream(predicates).reduce(new False<>(), Predicate::or);
     }
 
