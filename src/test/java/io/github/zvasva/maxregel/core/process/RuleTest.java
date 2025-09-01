@@ -27,6 +27,75 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RuleTest {
 
+
+    @Test
+    public void testFrom() {
+        FactSet a = FactSets.create("a", MapTerm.of("x", 1));
+        FactSet b = FactSets.create("b", MapTerm.of("y", 2));
+        FactSet facts = a.union(b);
+
+        assertEquals(a, new From("a").apply(facts));
+        assertEquals(b, new From("b").apply(facts));
+        assertEquals(EMPTY, new From("c").apply(facts));
+    }
+
+    @Test
+    public void testRemove() {
+        FactSet a = FactSets.create("a", MapTerm.of("x", 1));
+        FactSet b = FactSets.create("b", MapTerm.of("y", 2));
+        FactSet facts = a.union(b);
+
+        assertEquals(b, new Remove("a").apply(facts));
+        assertEquals(a, new Remove("b").apply(facts));
+        assertEquals(facts, new Remove("c").apply(facts));
+    }
+
+    @Test
+    public void testAssignSet() {
+        FactSet input = FactSets.create("input", MapTerm.of("x", 1));
+        print("input", input);
+        Rule assignset = new AssignSet("output", new Arithmetic.Add("y", new From("input"), new From("input")));
+        FactSet output = assignset.apply(input);
+        print("output", output);
+
+        FactSet expected = input.union(FactSets.create("output", MapTerm.of("y", 2.0)));
+        print("expected", expected);
+        assertEquals(expected, output);
+
+        // Now use a tracer
+        RuleResult ruleResult = assignset.apply(input, Tracer.ASSIGNMENTS);
+        print("total", ruleResult.total());
+        assertEquals(expected, ruleResult.total());
+
+        print("update", ruleResult.update());
+        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+    }
+
+
+    @Test
+    public void testAssignUpdate() {
+        FactSet input = FactSets.create("input", MapTerm.of("x", 1));
+        print("input", input);
+
+        Rule assignUpdate = new AssignUpdate("output", new Arithmetic.Add("y", new From("input"), new From("input")));
+
+        FactSet output = assignUpdate.apply(input);
+        print("output", output);
+
+        FactSet expected = input.union(FactSets.create("output", MapTerm.of("y", 2.0)));
+        print("expected", expected);
+        assertEquals(expected, output);
+
+        // Now use a tracer
+        RuleResult ruleResult = assignUpdate.apply(input, Tracer.ASSIGNMENTS);
+        print("total", ruleResult.total());
+        assertEquals(expected, ruleResult.total());
+
+        print("update", ruleResult.update());
+        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+    }
+
+
     @Test
     public void testSortByStringField() {
         FactSet facts = FactSets.create(

@@ -6,7 +6,7 @@
 
     <groupId>io.github.zvasva</groupId>
     <artifactId>max-regel-core</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.0-SNAPSHOT</version>
     <name>MaxRegel Rule Engine</name>
     <description>A logical inference engine</description>
     <url>https://github.com/zvasva/max-regel</url>
