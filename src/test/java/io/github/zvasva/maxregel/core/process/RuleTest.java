@@ -323,42 +323,6 @@ public class RuleTest {
         System.out.println("rules = " + rules);
     }
 
-
-    @Test
-    @Disabled
-    public void testBackwardChaining1(){
-        FactSet facts = FactSets.create(
-                FactSets.create("A", MapTerm.of("a", 1))
-        );
-        Script script = new Script(List.of(
-                let("B", from("C").then(cnst("b", 2))),
-                let("C", from("A").then(cnst("c", 3)))
-        ));
-
-        FactSet result = Inference.backwardChaining(facts, script, List.of("C"), new Tracer.Assignments(), 10);
-        print(result);
-        assertFalse(result.has("B"));
-        assertEquals(2, result.size());
-    }
-
-    @Test
-    @Disabled
-    public void testBackwardChaining2(){
-        FactSet facts = FactSets.create(
-                FactSets.create("A", MapTerm.of("a", 1))
-        );
-        Script script = new Script(List.of(
-                let("B", from("C").then(cnst("b", 2))),
-                let("C", from("A").then(cnst("c", 3)))
-        ));
-
-        FactSet result = Inference.backwardChaining(facts, script, List.of("B"), new Tracer.Assignments(), 10);
-        print(result);
-        assertTrue(result.has("B"));
-        assertEquals(3, result.size());
-    }
-
-
     @Test
     public void testCaseOnAge(){
         print(simpsons);

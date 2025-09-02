@@ -54,12 +54,4 @@ public class AssignUpdate extends Assign {
         return new RuleResult(update, total);
     }
 
-    @Override
-    public RuleResult apply(FactSet facts, Tracer tracer, AssignmentStructure assignmentStructure) {
-        RuleResult result = rule.apply(facts, tracer, assignmentStructure);
-        FactSet update = result.update().setPart(variable);
-        tracer.apply(this, update);
-        FactSet total = result.total().union(update);
-        return new RuleResult(update, total);
-    }
 }

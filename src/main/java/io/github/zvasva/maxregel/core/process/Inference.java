@@ -112,26 +112,6 @@ public class Inference {
 
     }
 
-    public static FactSet backwardChaining(FactSet givenFacts, Script script, Collection<String> goals, Tracer tracer, int maxIterations) {
-
-        AssignmentStructure assignmentStructure = new AssignmentStructure(maxIterations, script);
-        FactSet totalFactset = givenFacts;
-        for (String goal : goals) {
-            if (totalFactset.has(goal)) {
-                continue;
-            }
-            // get the rule for the goal
-            Assign rule = assignmentStructure.get(goal);
-
-            // now apply the rule to achieve the goal
-            RuleResult result = rule.apply(totalFactset, tracer, assignmentStructure);
-            totalFactset = result.total();
-        }
-
-        return totalFactset;
-    }
-
-
 
 
         /**

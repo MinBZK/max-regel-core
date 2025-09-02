@@ -14,18 +14,6 @@ import java.util.Map;
  */
 public interface Rule extends UnaryOperation<FactSet> {
 
-    /**
-     * An apply() implementation that allows for a tracer and assignment structure.
-     * todo
-     *
-     * @param facts the input facts
-     * @param tracer the tracer, that is called on the update (the new resulting facts after apply)
-     * @param assignmentStructure the assignment structure, that is used to checking dependencies
-     * @return a tuple of the total and update facts.
-     */
-    default RuleResult apply(FactSet facts, Tracer tracer, AssignmentStructure assignmentStructure) {
-        return apply(facts, tracer); // Ignore assignment structure by default
-    }
 
     /**
      * An apply() implementation that allows for a tracer to be called.
