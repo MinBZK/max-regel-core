@@ -3,6 +3,7 @@ package io.github.zvasva.maxregel.core.process;
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
 import io.github.zvasva.maxregel.core.factset.SinglePartFactSet;
+import io.github.zvasva.maxregel.core.process.factoperation.SetPart;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldEq;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldGeq;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldGt;
@@ -12,10 +13,10 @@ import io.github.zvasva.maxregel.core.process.rule.*;
 import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.MapTerm;
 import io.github.zvasva.maxregel.core.term.Terms;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
@@ -37,6 +38,18 @@ public class RuleTest {
         assertEquals(a, new From("a").apply(facts));
         assertEquals(b, new From("b").apply(facts));
         assertEquals(EMPTY, new From("c").apply(facts));
+    }
+
+
+    @Test
+    public void testSetPart() {
+        FactSet a = FactSets.create("a", MapTerm.of("x", 1));
+        FactSet b = FactSets.create("b", MapTerm.of("y", 2));
+        FactSet facts = a.union(b); // two parts
+
+        FactSet output = new SetPart("c").apply(facts);
+        assertEquals(Set.of("c"), output.parts());
+        assertEquals(2, output.size());
     }
 
     @Test
@@ -70,6 +83,35 @@ public class RuleTest {
         print("update", ruleResult.update());
         assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
     }
+
+
+    @Test
+    public void testAssignSetStar() {
+        FactSet input = FactSets.create("input", MapTerm.of("x", 1));
+        print("input", input);
+        Rule assignset = new AssignSet("*", new Arithmetic.Add("y", new From("input"), new From("input")).then(new SetPart("output")));
+        FactSet output = assignset.apply(input);
+        print("output", output);
+
+        FactSet expected = input.union(FactSets.create("output", MapTerm.of("y", 2.0)));
+        print("expected", expected);
+        assertEquals(expected, output);
+        assertTrue(output.has("input"));
+        assertTrue(output.has("output"));
+
+        // Now use a tracer
+        RuleResult ruleResult = assignset.apply(input, Tracer.ASSIGNMENTS);
+        print("total", ruleResult.total());
+        assertTrue(ruleResult.total().has("input"));
+        assertTrue(ruleResult.total().has("output"));
+        assertEquals(expected, ruleResult.total());
+
+        print("update", ruleResult.update());
+        assertFalse(ruleResult.update().has("input"));
+        assertTrue(ruleResult.update().has("output"));
+        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+    }
+
 
 
     @Test

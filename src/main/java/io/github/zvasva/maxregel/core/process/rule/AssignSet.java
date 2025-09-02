@@ -1,9 +1,7 @@
 package io.github.zvasva.maxregel.core.process.rule;
 
 
-import io.github.zvasva.maxregel.core.factset.Concat;
 import io.github.zvasva.maxregel.core.factset.FactSet;
-import io.github.zvasva.maxregel.core.process.AssignmentStructure;
 import io.github.zvasva.maxregel.core.process.Tracer;
 
 import java.util.LinkedHashMap;
@@ -31,29 +29,44 @@ public class AssignSet extends Assign {
         return "assign_set";
     }
 
-    @Override
-    public FactSet apply(FactSet facts) {
-        // facts.variable = rule(facts)
+    /**
+     * Add the update to the input to create the total factset/
+     * @param facts input
+     * @param update new facts
+     * @return a factset with a new part (variable = some name) or parts (variable = *)
+     */
+    private FactSet assignToTotal(FactSet facts, FactSet update) {
         if ("*".equals(variable)) {
             FactSet result = EMPTY;
-            FactSet subResults = rule.apply(facts);
 
-            for (String part : subResults.parts()) {
+            for (String part : update.parts()) {
                 facts = facts.remove(part);
-                result = result.union(subResults.get(part).setPart(part));
+                result = result.union(update.get(part).setPart(part));
             }
 
             return facts.union(result);
         } else {
-            return new Concat(facts.remove(variable), rule.apply(facts).setPart(variable));
+            return facts.remove(variable).union(update.setPart(variable));
         }
+    }
+
+
+    /**
+     * Add a part to the input factset
+     * @param facts input facts
+     * @return input facts plus new part under variable name
+     */
+    @Override
+    public FactSet apply(FactSet facts) {
+        // Pseudocode: facts.variable = rule(facts)
+        return assignToTotal(facts, rule.apply(facts));
     }
 
     @Override
     public RuleResult apply(FactSet facts, Tracer tracer) {
-        FactSet update = rule.apply(facts).setPart(variable);
+        FactSet update = rule.apply(facts);
         tracer.apply(this, update);
-        Concat total = new Concat(facts.remove(variable), update);
+        FactSet total = assignToTotal(facts, update);
         return new RuleResult(update, total);
     }
 
