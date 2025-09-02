@@ -35,18 +35,19 @@ public class AssignSet extends Assign {
      * @param update new facts
      * @return a factset with a new part (variable = some name) or parts (variable = *)
      */
-    private FactSet assignToTotal(FactSet facts, FactSet update) {
+    private RuleResult assignToTotal(FactSet facts, FactSet update) {
         if ("*".equals(variable)) {
-            FactSet result = EMPTY;
+            FactSet updateResult = EMPTY;
 
             for (String part : update.parts()) {
                 facts = facts.remove(part);
-                result = result.union(update.get(part).setPart(part));
+                updateResult = updateResult.union(update.get(part).setPart(part));
             }
 
-            return facts.union(result);
+            return new RuleResult(updateResult, facts.union(updateResult));
         } else {
-            return facts.remove(variable).union(update.setPart(variable));
+            update = update.setPart(variable);
+            return new RuleResult(update, facts.remove(variable).union(update));
         }
     }
 
@@ -59,15 +60,14 @@ public class AssignSet extends Assign {
     @Override
     public FactSet apply(FactSet facts) {
         // Pseudocode: facts.variable = rule(facts)
-        return assignToTotal(facts, rule.apply(facts));
+        return assignToTotal(facts, rule.apply(facts)).total();
     }
 
     @Override
     public RuleResult apply(FactSet facts, Tracer tracer) {
         FactSet update = rule.apply(facts);
         tracer.apply(this, update);
-        FactSet total = assignToTotal(facts, update);
-        return new RuleResult(update, total);
+        return assignToTotal(facts, update);
     }
 
 }
