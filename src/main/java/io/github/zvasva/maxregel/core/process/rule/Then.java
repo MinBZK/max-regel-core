@@ -56,20 +56,13 @@ public class Then extends AbstractRule {
             }
         }
 
-        // The expected case: apply a, then b (with bookkeeping of updates and total results)
+        // The expected case: apply _a_, then _b_ (with bookkeeping of updates and output results)
         RuleResult resultA = a.apply(factset, tracer);
-        RuleResult resultB;
-        FactSet update;
+        RuleResult resultB = b.apply(resultA.output(), tracer);
 
-        if (!resultA.totalChanged()) {
-            resultB = b.apply(resultA.update(), tracer);
-            update = resultB.update();
-        } else {
-            resultB = b.apply(resultA.total(), tracer);
-            update = resultA.update().union(resultB.update());
-        }
+        FactSet newlyAssigned = resultA.newlyAssigned().union(resultB.newlyAssigned());
 
-        return new RuleResult(update, resultB.total(), resultA.totalChanged() || resultB.totalChanged());
+        return new RuleResult(resultB.output(), newlyAssigned);
     }
 
     @Override

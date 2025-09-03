@@ -4,9 +4,9 @@ import io.github.zvasva.maxregel.core.factset.FactSet;
 
 /**
  * A tuple of factsets after applying a {@link Rule}.
- * @param update the newly created factset by the rule
- * @param total the factset containing the all new data to continue with for a next rule application.
- * @param totalChanged indicate if the total factset has changed.
+ *
+ * @param output        the factset containing output of a rule
+ * @param newlyAssigned the part of the output that are newly declared parts (variables)
  */
-public record RuleResult(FactSet update, FactSet total, boolean totalChanged) {
+public record RuleResult(FactSet output, FactSet newlyAssigned) {
 }

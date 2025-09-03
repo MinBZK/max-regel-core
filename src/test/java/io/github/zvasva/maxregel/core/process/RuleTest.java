@@ -77,11 +77,11 @@ public class RuleTest {
 
         // Now use a tracer
         RuleResult ruleResult = assignset.apply(input, Tracer.ASSIGNMENTS);
-        print("total", ruleResult.total());
-        assertEquals(expected, ruleResult.total());
+        print("output", ruleResult.output());
+        assertEquals(expected, ruleResult.output());
 
-        print("update", ruleResult.update());
-        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+        print("newlyAssigned", ruleResult.newlyAssigned());
+        assertEquals(ruleResult.newlyAssigned(), ruleResult.output().remove("input"));
     }
 
 
@@ -101,15 +101,15 @@ public class RuleTest {
 
         // Now use a tracer
         RuleResult ruleResult = assignset.apply(input, Tracer.ASSIGNMENTS);
-        print("\nActual total", ruleResult.total());
-        assertTrue(ruleResult.total().has("input"));
-        assertTrue(ruleResult.total().has("output"));
-        assertEquals(expected, ruleResult.total());
+        print("\nActual output", ruleResult.output());
+        assertTrue(ruleResult.output().has("input"));
+        assertTrue(ruleResult.output().has("output"));
+        assertEquals(expected, ruleResult.output());
 
-        print("\nActual update", ruleResult.update());
-        assertFalse(ruleResult.update().has("input"));
-        assertTrue(ruleResult.update().has("output"));
-        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+        print("\nActual newlyAssigned", ruleResult.newlyAssigned());
+        assertFalse(ruleResult.newlyAssigned().has("input"));
+        assertTrue(ruleResult.newlyAssigned().has("output"));
+        assertEquals(ruleResult.newlyAssigned(), ruleResult.output().remove("input"));
     }
 
 
@@ -130,11 +130,11 @@ public class RuleTest {
 
         // Now use a tracer
         RuleResult ruleResult = assignUpdate.apply(input, Tracer.ASSIGNMENTS);
-        print("total", ruleResult.total());
-        assertEquals(expected, ruleResult.total());
+        print("output", ruleResult.output());
+        assertEquals(expected, ruleResult.output());
 
-        print("update", ruleResult.update());
-        assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
+        print("newlyAssigned", ruleResult.newlyAssigned());
+        assertEquals(ruleResult.newlyAssigned(), ruleResult.output().remove("input"));
     }
 
 
@@ -737,7 +737,7 @@ public class RuleTest {
         );
 
         print(script);
-        FactSet result = script.apply(facts, new Tracer.Assignments()).update();
+        FactSet result = script.apply(facts, new Tracer.Assignments()).newlyAssigned();
         print(result);
         assertTrue(result.has("FAA"));
         assertTrue(result.has("FBB"));

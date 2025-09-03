@@ -7,6 +7,8 @@ import io.github.zvasva.maxregel.util.Collections;
 
 import java.util.Map;
 
+import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
+
 /**
  * Rule represents a transformation that can be applied to a {@link FactSet}.
  * Each Rule has a unique identifier and associated metadata.
@@ -21,15 +23,15 @@ public interface Rule extends UnaryOperation<FactSet> {
      * and returns those results, along with the untouched input facts.
      *
      * @param facts the input facts
-     * @param tracer the tracer, that is called on the update (the new resulting facts after apply)
-     * @return a tuple of the total and update facts.
+     * @param tracer the tracer, that is called on the newlyAssigned (the new resulting facts after apply)
+     * @return a tuple of the output and newlyAssigned facts.
      */
     default RuleResult apply(FactSet facts, Tracer tracer) {
         try {
-            FactSet updates = apply(facts);
-            tracer.apply(this, updates);
-            // most rules will just produce a new result (the update)
-            return new RuleResult(updates, facts, false);
+            FactSet output = apply(facts);
+            tracer.apply(this, output);
+            // most rules will just produce a new result, and declare no new variable
+            return new RuleResult(output, EMPTY);
         } catch (Exception e) {
             tracer.except(e, this, facts);
             throw e; // Re-throw the exception after tracing
