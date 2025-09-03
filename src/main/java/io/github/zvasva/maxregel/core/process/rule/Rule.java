@@ -1,7 +1,6 @@
 package io.github.zvasva.maxregel.core.process.rule;
 
 import io.github.zvasva.maxregel.core.factset.FactSet;
-import io.github.zvasva.maxregel.core.process.AssignmentStructure;
 import io.github.zvasva.maxregel.core.process.Tracer;
 import io.github.zvasva.maxregel.core.process.UnaryOperation;
 import io.github.zvasva.maxregel.util.Collections;
@@ -30,7 +29,7 @@ public interface Rule extends UnaryOperation<FactSet> {
             FactSet updates = apply(facts);
             tracer.apply(this, updates);
             // most rules will just produce a new result (the update)
-            return new RuleResult(updates, facts);
+            return new RuleResult(updates, facts, false);
         } catch (Exception e) {
             tracer.except(e, this, facts);
             throw e; // Re-throw the exception after tracing

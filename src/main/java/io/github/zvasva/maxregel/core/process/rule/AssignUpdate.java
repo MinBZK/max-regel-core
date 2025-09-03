@@ -44,10 +44,10 @@ public class AssignUpdate extends Assign {
                 updateResult = updateResult.union(update.get(part).setPart(part));
             }
 
-            return new RuleResult(updateResult, facts.union(updateResult));
+            return new RuleResult(updateResult, facts.union(updateResult), true);
         } else {
             update = update.setPart(variable);
-            return new RuleResult(update, facts.union(update));
+            return new RuleResult(update, facts.union(update), true);
         }
     }
 

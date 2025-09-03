@@ -88,25 +88,25 @@ public class RuleTest {
     @Test
     public void testAssignSetStar() {
         FactSet input = FactSets.create("input", MapTerm.of("x", 1));
-        print("input", input);
+        print("\nActual input", input);
         Rule assignset = new AssignSet("*", new Arithmetic.Add("y", new From("input"), new From("input")).then(new SetPart("output")));
         FactSet output = assignset.apply(input);
-        print("output", output);
+        print("\nActual output", output);
 
         FactSet expected = input.union(FactSets.create("output", MapTerm.of("y", 2.0)));
-        print("expected", expected);
+        print("\nActual expected", expected);
         assertEquals(expected, output);
         assertTrue(output.has("input"));
         assertTrue(output.has("output"));
 
         // Now use a tracer
         RuleResult ruleResult = assignset.apply(input, Tracer.ASSIGNMENTS);
-        print("total", ruleResult.total());
+        print("\nActual total", ruleResult.total());
         assertTrue(ruleResult.total().has("input"));
         assertTrue(ruleResult.total().has("output"));
         assertEquals(expected, ruleResult.total());
 
-        print("update", ruleResult.update());
+        print("\nActual update", ruleResult.update());
         assertFalse(ruleResult.update().has("input"));
         assertTrue(ruleResult.update().has("output"));
         assertEquals(ruleResult.update(), ruleResult.total().remove("input"));
