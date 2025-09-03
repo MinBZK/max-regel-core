@@ -7,6 +7,7 @@ import io.github.zvasva.maxregel.core.process.rule.Rules;
 import io.github.zvasva.maxregel.core.process.rule.Script;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 import static io.github.zvasva.maxregel.core.factset.FactSetTest.simpsons;
@@ -30,6 +31,39 @@ public class ScriptTest {
         print("script", script.ast());
         FactSet result = script.apply(simpsons);
         print("\nresult", result);
+
+        Rules.annotateDependencies(script);
+        print("script with deps...", script);
+        assertEquals(3, result.get("kids").size());
+        assertEquals(1, result.get("boys").size());
+    }
+
+
+    @Test
+    public void testScript1Bulk() {
+        final int n = 100_000;
+
+        print("""
+              A simple script
+              """);
+
+        Script script = script(
+                let("kids", filter("simpsons", "age", "<", 18)),
+                let("boys", filter("kids", "gender", "==", "male"))
+        );
+
+
+        FactSet result = null;
+        long t0 = System.currentTimeMillis();
+        for (int i = 0; i < n; i++) {
+            result = script.apply(simpsons);
+        }
+        long t1 = System.currentTimeMillis();
+        print("\nresult", result);
+
+        System.out.printf("Running script %,d times\n", n);
+        System.out.printf("Total time: %.2f sec\n", (t1-t0)/1000.0);
+        System.out.printf("Throughput: %,.0f scripts/sec\n", n/((t1-t0)/1000.0));
 
         Rules.annotateDependencies(script);
         print("script with deps...", script);
