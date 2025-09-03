@@ -65,9 +65,9 @@ public class AssignSet extends Assign {
 
     @Override
     public RuleResult apply(FactSet facts, Tracer tracer) {
-        FactSet update = rule.apply(facts);
-        tracer.apply(this, update);
-        return assignToTotal(facts, update);
+        RuleResult ruleResult = rule.apply(facts, tracer); // body, RHS
+        tracer.apply(this, ruleResult.update());
+        return assignToTotal(facts, ruleResult.update());
     }
 
 }
