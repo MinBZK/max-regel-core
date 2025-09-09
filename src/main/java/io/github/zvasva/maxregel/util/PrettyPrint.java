@@ -123,7 +123,7 @@ public class PrettyPrint {
                 yield init + indent + args.get(0) + ("assign_set".equals(op) ? " = " : " += ") + pretty((AstNode) args.get(1), indent + "  ");
             }
             case "case" -> "case[ " + prettyCaseLookup((List<List<AstNode>>) args.get(1)) +  " ELSE " + pretty( (AstNode) args.get(2), indent) + " ] AS " + args.get(3);
-            case "filter" -> "filter[" + ("identity".equals(((AstNode)args.getFirst()).op()) ? "" : pretty(args.getFirst()) +",") + prettyPredicate(args.get(1)) + "]";
+            case "filter" -> "filter[" + ("identity".equals(((AstNode)args.getFirst()).op()) ? "" : pretty(args.getFirst()) +", ") + prettyPredicate(args.get(1)) + "]";
             case "factsetcase" -> "fscase[\n"+indent+"  IF\n" + indent + "  " + prettyCaseLookup3((List<List<AstNode>>) args.get(0), indent + "  ") +  " \n"+indent+"  ELSE " + pretty( (AstNode) args.get(1)) + "\n"+indent+"]";
             case "add", "sub", "mul", "div", "pow" ->  prettyArithmetic(ast) + " AS " + args.get(0);
             case "min", "max" -> prettyArithmeticOp(ast) + "["+ pretty(args.get(1)) + ", " + pretty(args.get(2)) + " ]";

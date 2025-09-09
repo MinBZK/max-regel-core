@@ -362,7 +362,7 @@ public class RuleTest {
         System.out.println("santas = " + santas);
         assertFalse(santas.isEmpty());
 
-        System.out.println("rules = " + rules);
+        print(new Script(rules));
     }
 
     @Test
