@@ -13,6 +13,18 @@ A rule engine helps organizations make decisions automatically and consistently.
 
 ## Installation
 
+Maven:
+
+```
+<dependency>
+    <groupId>io.github.zvasva</groupId>
+    <artifactId>max-regel-core</artifactId>
+    <version>0.7.0</version>
+</dependency>
+```
+
+### Build JAR
+
 - Clone the project
 
   ```shell script
