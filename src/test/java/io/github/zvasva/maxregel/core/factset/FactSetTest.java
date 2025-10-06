@@ -7,6 +7,7 @@ import io.github.zvasva.maxregel.core.process.predicate.Comparator;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldEq;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldGt;
 import io.github.zvasva.maxregel.core.process.predicate.Comparator.FieldLt;
+import io.github.zvasva.maxregel.core.process.predicate.FieldEmpty;
 import io.github.zvasva.maxregel.core.process.predicate.Predicate;
 import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.MapTerm;
@@ -100,6 +101,19 @@ public class FactSetTest {
         MapTerm.of("name", "Selma", "address", null),
         MapTerm.of("name", "Otto", "address", null),
         MapTerm.of("name", "Krusty", "address", "Circus")
+    );
+
+
+    public static final FactSet incompleteSimpsons = FactSets.create("simpsons",
+            MapTerm.of("name", "Homer", "hair", "short", "weight", 250, "age", 36, "gender", "male"),
+            MapTerm.of("name", "Marge", "hair", "long", "weight", 150, "age", 35, "gender", "female"),
+            MapTerm.of("name", "Bart", "hair", "", "weight", 90, "age", 10, "gender", "male"),
+            MapTerm.of("name", "Lisa", "hair", "middle", "weight", 78, "age", 8, "gender", "female"),
+            MapTerm.of("name", "Maggie", "hair", null, "weight", 20, "age", 1, "gender", "female"),
+            MapTerm.of("name", "Abe", "hair", "short", "weight", 170, "age", 70, "gender", "male"),
+            MapTerm.of("name", "Selma", "hair", "  ", "weight", 160, "age", 41, "gender", "female"),
+            MapTerm.of("name", "Otto", "hair", "long", "weight", 180, "age", 38, "gender", "male"),
+            MapTerm.of("name", "Krusty", "hair", "middle", "weight", 200, "age", 45, "gender", "male")
     );
 
     @BeforeAll
@@ -319,7 +333,12 @@ public class FactSetTest {
         FactSet dobWithAge = new ComputeAge("dob", "age").apply(dob);
         System.out.println(PrettyPrint.pretty(dobWithAge));
     }
-    
+
+    @Test
+    void testEmptyHair(){
+        FactSet noHair = incompleteSimpsons.filter(new FieldEmpty("hair").not());
+        System.out.println("noHair = " + noHair);
+    }
 
     @Test
     public void prettyPrintHeterogeneousFactSet(){
@@ -332,8 +351,6 @@ public class FactSetTest {
 
         System.out.println(PrettyPrint.pretty(heterogeneous));
     }
-
-
 
     @Test
     public void schema(){
