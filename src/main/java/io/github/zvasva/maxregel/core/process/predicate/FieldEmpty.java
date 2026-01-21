@@ -32,6 +32,6 @@ public class FieldEmpty extends AbstractPredicate<Fact, FactSet> {
 
     @Override
     public boolean test(Fact fact) {
-        return Coerce.asBoolean(fact.get(field));
+        return !Coerce.asBoolean(fact.get(field));
     }
 }

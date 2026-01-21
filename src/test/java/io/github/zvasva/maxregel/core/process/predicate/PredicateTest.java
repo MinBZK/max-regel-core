@@ -281,4 +281,15 @@ public class PredicateTest {
         assertTrue(new All(gt("age", 40)).test(facts));
         assertFalse(new All(gt("age", 43)).test(facts));
     }
+
+    @Test
+    void testFieldEmptyPredicate() {
+        assertFalse(new FieldEmpty("name").test(new Fact(MapTerm.of("name", "Douglas", "age", 42))));
+        assertFalse(new FieldEmpty("age").test(new Fact(MapTerm.of("name", "Douglas", "age", 42))));
+        assertTrue(new FieldEmpty("name").test(new Fact(MapTerm.of("name", "", "age", 42))));
+        assertTrue(new FieldEmpty("name").test(new Fact(MapTerm.of("name", null, "age", 42))));
+        assertTrue(new FieldEmpty("age").test(new Fact(MapTerm.of("name", "", "age", null))));
+        assertTrue(new FieldEmpty("age").test(new Fact(MapTerm.of("name", null, "age", 0))));
+        assertTrue(new FieldEmpty("x").test(new Fact(MapTerm.of("name", "Douglas", "age", 42))));
+    }
 }
