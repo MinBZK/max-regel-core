@@ -52,7 +52,7 @@ Maven:
 The application can be packaged using:
 
 ```shell script
-./mvnw package
+mvn package
 ```
 
 
