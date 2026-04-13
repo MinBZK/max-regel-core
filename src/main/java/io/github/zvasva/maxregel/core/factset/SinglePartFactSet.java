@@ -132,7 +132,7 @@ public class SinglePartFactSet extends AbstractFactSet {
     }
 
     @Override
-    public FactSet filter(Predicate<Fact, FactSet> predicate) {
+    public FactSet filter(Predicate<Fact> predicate) {
         if(predicate instanceof Comparator cmp && "field_eq".equals(cmp.op())){
             Object y = cmp.getY();
             if(y instanceof Number n) {

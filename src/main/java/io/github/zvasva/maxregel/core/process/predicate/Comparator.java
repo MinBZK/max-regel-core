@@ -20,7 +20,7 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * It takes special care of comparing Numbers (e.g. Long &gt; Double).
  * @author Arvid Halma
  */
-public class Comparator extends AbstractPredicate<Fact, FactSet> {
+public class Comparator extends AbstractPredicate<Fact> {
     private final String op;
     private final String field;
     private final Object y;
@@ -61,8 +61,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         return new AstNode(op,  Map.of(), List.of(field, y));
     }
 
-    @Override
-    public Comparator bind(FactSet parameterData) {
+
+    public Comparator bindOld(FactSet parameterData) {
         if(field == null || y == null) {
             // No rule to bind, just first key and value
             Term term = FactSets.firstTerm(parameterData);

@@ -119,7 +119,7 @@ public class Concat extends AbstractFactSet {
     }
 
     @Override
-    public FactSet filter(Predicate<Fact, FactSet> predicate) {
+    public FactSet filter(Predicate<Fact> predicate) {
         return a.filter(predicate).union(b.filter(predicate));
     }
 

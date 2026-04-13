@@ -22,7 +22,7 @@ public class Predicates {
      * @param <T> the argument type
      */
     @SafeVarargs
-    public static <T> Predicate<T, ?> and(Predicate<T, Object> ... predicates) {
+    public static <T> Predicate<T> and(Predicate<T> ... predicates) {
         return Arrays.stream(predicates).reduce(new True<>(), Predicate::and);
     }
 
@@ -33,11 +33,11 @@ public class Predicates {
      * @param <T> the argument type
      */
     @SafeVarargs
-    public static <T> Predicate<T, ?> or(Predicate<T, Object> ... predicates) {
+    public static <T> Predicate<T> or(Predicate<T> ... predicates) {
         return Arrays.stream(predicates).reduce(new False<>(), Predicate::or);
     }
 
-    public static Predicate<Fact, ?> parse(AstNode node) {
+    public static Predicate<Fact> parse(AstNode node) {
         if (node == null) {
             return null;
         }
@@ -52,15 +52,15 @@ public class Predicates {
             case "field_contains" -> new FieldContains(args.get(0).toString(), args.get(1).toString());
             case "field_in", "in" -> new FieldIn(args.get(0).toString(), args.get(1).toString()); // todo: list case
             case "not" -> new Not<>(parse((AstNode) args.get(0)));
-            case "and", "&" -> new And<>((Predicate<Fact, FactSet>) parse((AstNode) args.get(0)), (Predicate<Fact, FactSet>) parse((AstNode) args.get(1)));
-            case "or", "|" -> new Or<>((Predicate<Fact, FactSet>) parse((AstNode) args.get(0)), (Predicate<Fact, FactSet>) parse((AstNode) args.get(1)));
+            case "and", "&" -> new And<>((Predicate<Fact>) parse((AstNode) args.get(0)), (Predicate<Fact>) parse((AstNode) args.get(1)));
+            case "or", "|" -> new Or<>((Predicate<Fact>) parse((AstNode) args.get(0)), (Predicate<Fact>) parse((AstNode) args.get(1)));
 
             default -> throw new IllegalArgumentException("Unsupported predicate function name: " + node.op());
         };
     }
 
 
-    public static Predicate<FactSet, ?> parse2(AstNode node) {
+    public static Predicate<FactSet> parse2(AstNode node) {
         if (node == null) {
             return null;
         }
@@ -76,7 +76,7 @@ public class Predicates {
      * Evaluates always to true, independent of the argument.
      * @param <T> argument type
      */
-    public static class True<T> extends AbstractPredicate<T, Object> {
+    public static class True<T> extends AbstractPredicate<T> {
         @Override
         public boolean test(Object arg) {return true;}
 
@@ -88,7 +88,7 @@ public class Predicates {
      * Evaluates always to false, independent of the argument.
      * @param <T> argument type
      */
-    public static class False<T> extends AbstractPredicate<T, Object> {
+    public static class False<T> extends AbstractPredicate<T> {
         @Override
         public boolean test(Object arg) {return false;}
 

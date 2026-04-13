@@ -160,7 +160,7 @@ public class FactSetTest {
         assertEquals(9, residents.size());
     }
 
-    private long verboseFilterCount(FactSet facts, Predicate<Fact, FactSet> predicate){
+    private long verboseFilterCount(FactSet facts, Predicate<Fact> predicate){
         FactSet filtered = facts.filter(predicate);
         System.out.println("Filter " + PrettyPrint.prettyPredicate(predicate) + ":\n" + filtered);
         return filtered.size();

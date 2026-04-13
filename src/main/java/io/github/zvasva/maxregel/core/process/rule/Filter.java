@@ -12,13 +12,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  */
 public class Filter extends AbstractRule {
     private final Rule select;
-    private final Predicate<Fact, FactSet> predicate;
+    private final Predicate<Fact> predicate;
 
-    public Filter(Predicate<Fact, FactSet> predicate) {
+    public Filter(Predicate<Fact> predicate) {
         this(Rule.identity(), predicate);
     }
 
-    public Filter(Rule select, Predicate<Fact, FactSet> predicate) {
+    public Filter(Rule select, Predicate<Fact> predicate) {
         this.select = requireNonNullArg(select, "select");
         this.predicate = requireNonNullArg(predicate, "predicate");
     }
@@ -35,7 +35,8 @@ public class Filter extends AbstractRule {
 
     @Override
     public FactSet apply(FactSet factset) {
-        Predicate<Fact, FactSet> concretePred = predicate.bind(factset);
-        return select.apply(factset).filter(concretePred);
+        //fixme
+//        Predicate<Fact> concretePred = predicate.bind(factset);
+        return select.apply(factset).filter(predicate);
     }
 }

@@ -16,13 +16,13 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 public class Assert extends AbstractRule {
 
     private final Rule select;
-    private final Predicate<FactSet, FactSet> predicate;
+    private final Predicate<FactSet> predicate;
 
-    public Assert(Predicate<FactSet, FactSet> predicate) {
+    public Assert(Predicate<FactSet> predicate) {
         this(Rule.identity(),predicate);
     }
 
-    public Assert(Rule select, Predicate<FactSet, FactSet> predicate) {
+    public Assert(Rule select, Predicate<FactSet> predicate) {
         this.select = requireNonNullArg(select, "select");
         this.predicate = requireNonNullArg(predicate, "predicate");
     }

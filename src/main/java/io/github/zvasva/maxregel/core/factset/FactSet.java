@@ -112,7 +112,7 @@ public interface FactSet extends Iterable<Fact> {
      * @param predicate the predicate to apply for filtering.
      * @return a new FactSet containing only the elements that match the predicate.
      */
-    FactSet filter(Predicate<Fact, FactSet> predicate);
+    FactSet filter(Predicate<Fact> predicate);
 
     /**
      * Groups the {@link FactSet} by the specified function.
@@ -183,7 +183,7 @@ public interface FactSet extends Iterable<Fact> {
      * @param predicate the predicate to apply.
      * @return {@code true} if any facts match the predicate; {@code false} otherwise.
      */
-    boolean any(Predicate<Fact, FactSet> predicate);
+    boolean any(Predicate<Fact> predicate);
 
     /**
      * Checks if all facts in the {@link FactSet} match the given predicate.
@@ -191,6 +191,6 @@ public interface FactSet extends Iterable<Fact> {
      * @param predicate the predicate to apply.
      * @return {@code true} if all facts match the predicate; {@code false} otherwise.
      */
-    boolean all(Predicate<Fact, FactSet> predicate);
+    boolean all(Predicate<Fact> predicate);
 
 }

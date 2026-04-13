@@ -69,7 +69,7 @@ public class Empty implements FactSet {
     }
 
     @Override
-    public FactSet filter(Predicate<Fact, FactSet> predicate) {
+    public FactSet filter(Predicate<Fact> predicate) {
         return this;
     }
 
@@ -114,12 +114,12 @@ public class Empty implements FactSet {
     }
 
     @Override
-    public boolean any(Predicate<Fact, FactSet> predicate) {
+    public boolean any(Predicate<Fact> predicate) {
         return false;
     }
 
     @Override
-    public boolean all(Predicate<Fact, FactSet> predicate) {
+    public boolean all(Predicate<Fact> predicate) {
         return true;
     }
 

@@ -28,7 +28,7 @@ public class FactSetCase extends AbstractRule {
         this.defaultValue = requireNonNullArg(defaultValue, "defaultValue");
     }
 
-    public FactSetCase(Predicate<FactSet, FactSet> condition) {
+    public FactSetCase(Predicate<FactSet> condition) {
         this(List.of(new LookupEntry(Rule.identity(), condition, cnst(true))), cnst(false));
     }
 
@@ -71,6 +71,6 @@ public class FactSetCase extends AbstractRule {
      * @param condition the factset predicate
      * @param consequence the resulting value in case of success.
      */
-    public record LookupEntry(Rule conditionSelect, Predicate<FactSet, FactSet> condition, Rule consequence) {}
+    public record LookupEntry(Rule conditionSelect, Predicate<FactSet> condition, Rule consequence) {}
 
 }

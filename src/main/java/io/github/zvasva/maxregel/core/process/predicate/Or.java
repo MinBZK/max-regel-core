@@ -14,10 +14,10 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
  * @author Arvid Halma
  */
-public class Or<T, B> extends AbstractPredicate<T, B> {
-    private final Predicate<T, B> a, b;
+public class Or<T> extends AbstractPredicate<T> {
+    private final Predicate<T> a, b;
 
-    public Or(Predicate<T, B> a, Predicate<T, B> b) {
+    public Or(Predicate<T> a, Predicate<T> b) {
         this.a = requireNonNullArg(a, "a");
         this.b = requireNonNullArg(b, "b");
     }
@@ -32,9 +32,4 @@ public class Or<T, B> extends AbstractPredicate<T, B> {
         return a.test(x) || b.test(x);
     }
 
-
-    @Override
-    public Predicate<T, B> bind(B parameterData) {
-        return new Or<>(a.bind(parameterData), b.bind(parameterData));
-    }
 }

@@ -14,10 +14,10 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
  * @author Arvid Halma
  */
-public class Not<T, B> extends AbstractPredicate<T, B> {
-    private final Predicate<T, B> p;
+public class Not<T> extends AbstractPredicate<T> {
+    private final Predicate<T> p;
 
-    public Not(Predicate<T, B> p) {
+    public Not(Predicate<T> p) {
         this.p = requireNonNullArg(p, "p");
     }
 
@@ -31,8 +31,4 @@ public class Not<T, B> extends AbstractPredicate<T, B> {
         return !p.test(x);
     }
 
-    @Override
-    public Predicate<T, B> bind(B parameterData) {
-        return new Not<>(p.bind(parameterData));
-    }
 }

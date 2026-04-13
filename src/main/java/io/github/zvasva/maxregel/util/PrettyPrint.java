@@ -31,7 +31,7 @@ public class PrettyPrint {
     }
 
 
-    public static String pretty(Predicate<?, ?> predicate) {
+    public static String pretty(Predicate<?> predicate) {
         return prettyPredicate(predicate.ast());
     }
 
@@ -148,7 +148,7 @@ public class PrettyPrint {
                 op = node.op();
                 args = node.args();
             }
-            case Predicate<?,?> p -> {
+            case Predicate<?> p -> {
                 AstNode node = p.ast();
                 op = node.op();
                 args = node.args();
@@ -225,7 +225,7 @@ public class PrettyPrint {
 
     ///// print functions /////
 
-    public static void print(Predicate<?,?> predicate) {
+    public static void print(Predicate<?> predicate) {
         System.out.println(pretty(predicate));
     }
 

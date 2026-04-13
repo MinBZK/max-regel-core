@@ -13,11 +13,11 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  * A predicate that checks if all of its facts pass a given test.
  * @author Arvid Halma
  */
-public class All extends AbstractPredicate<FactSet, FactSet> {
+public class All extends AbstractPredicate<FactSet> {
 
-    private final Predicate<Fact, FactSet> factPredicate;
+    private final Predicate<Fact> factPredicate;
 
-    public All(Predicate<Fact, FactSet> factPredicate) {
+    public All(Predicate<Fact> factPredicate) {
         this.factPredicate = requireNonNullArg(factPredicate, "factPredicate");
     }
 
@@ -28,6 +28,6 @@ public class All extends AbstractPredicate<FactSet, FactSet> {
 
     @Override
     public boolean test(FactSet factset) {
-        return factset.stream().allMatch(f -> factPredicate.test(f));
+        return factset.stream().allMatch(factPredicate::test);
     }
 }

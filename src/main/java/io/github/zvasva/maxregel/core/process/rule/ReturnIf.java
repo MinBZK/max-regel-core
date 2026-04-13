@@ -14,18 +14,18 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 public class ReturnIf extends AbstractRule {
 
     Rule conditionSelect;
-    Predicate<FactSet, FactSet> condition;
+    Predicate<FactSet> condition;
     Rule resultSelect;
 
     public ReturnIf(Rule conditionSelect) {
         this(conditionSelect, new Exists(), Rule.identity());
     }
 
-    public ReturnIf(Rule conditionSelect, Predicate<FactSet, FactSet> condition) {
+    public ReturnIf(Rule conditionSelect, Predicate<FactSet> condition) {
         this(conditionSelect, condition, Rule.identity());
     }
 
-    public ReturnIf(Rule conditionSelect, Predicate<FactSet, FactSet> condition, Rule resultSelect) {
+    public ReturnIf(Rule conditionSelect, Predicate<FactSet> condition, Rule resultSelect) {
         this.conditionSelect = requireNonNullArg(conditionSelect, "conditionSelect");
         this.condition = requireNonNullArg(condition, "condition");
         this.resultSelect = requireNonNullArg(resultSelect, "resultSelect");

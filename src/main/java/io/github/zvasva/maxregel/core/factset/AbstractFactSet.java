@@ -86,12 +86,12 @@ public abstract class AbstractFactSet implements FactSet {
     }
 
     @Override
-    public boolean any(Predicate<Fact, FactSet> predicate){
+    public boolean any(Predicate<Fact> predicate){
         return stream().anyMatch(predicate::test);
     }
 
     @Override
-    public boolean all(Predicate<Fact, FactSet> predicate){
+    public boolean all(Predicate<Fact> predicate){
         return stream().noneMatch(new Not<>(predicate)::test);
     }
 

@@ -107,7 +107,7 @@ public class Rules {
         return cnst(FactSets.cnst(fieldName, x));
     }
 
-    public static Rule filter(Predicate<Fact, FactSet> predicate) {
+    public static Rule filter(Predicate<Fact> predicate) {
         return new Filter(predicate);
     }
 
@@ -128,7 +128,9 @@ public class Rules {
     }
 
     public static Comparator predicate(String variable, String operator, Object value) {
-        return unboundPredicate(operator).bind(FactSets.create(MapTerm.of(variable, value)));
+        // todo
+        Comparator comparator = unboundPredicate(operator);
+        return comparator.bind(FactSets.create(MapTerm.of(variable, value)));
     }
 
     public static Comparator unboundPredicate(String operator) {
@@ -266,7 +268,7 @@ public class Rules {
             case "consolidate" -> new Consolidate(); // todo: select?
             case "const" -> new Const((FactSet) args.get(0));
             case "count" -> new Count(parse((AstNode) args.get(0)), (String) args.get(1));
-            case "filter" -> new Filter(parse((AstNode) args.get(0)), (Predicate<Fact, FactSet>) Predicates.parse((AstNode) args.get(1)));
+            case "filter" -> new Filter(parse((AstNode) args.get(0)), (Predicate<Fact>) Predicates.parse((AstNode) args.get(1)));
             // todo factsetcase
             case "flatmap" -> new FlatMap(parse((AstNode) args.get(0)), parse((AstNode) args.get(1)));
             case "from" -> new From(args.get(0).toString());
@@ -278,7 +280,7 @@ public class Rules {
             case "once" -> new Once(parse((AstNode) args.get(0)));
             case "print" -> new Print(parse((AstNode) args.get(0)), (String) args.get(1));
             case "remove" -> new Remove(args.get(0).toString());
-            case "return_if" -> new ReturnIf(parse((AstNode) args.get(0)), (Predicate<FactSet, FactSet>) Predicates.parse2((AstNode) args.get(1)), parse((AstNode) args.get(2)));
+            case "return_if" -> new ReturnIf(parse((AstNode) args.get(0)), (Predicate<FactSet>) Predicates.parse2((AstNode) args.get(1)), parse((AstNode) args.get(2)));
             case "script" -> new Script(args.stream().map(xs -> Rules.parse((AstNode) xs)).toList());
             case "select_fields" -> new SelectFields(parse((AstNode) args.get(0)), (List<String>) args.get(1));
             case "sort" -> new Sort(parse((AstNode) args.get(0)), args.get(1).toString(), Coerce.asBoolean(args.get(2)));

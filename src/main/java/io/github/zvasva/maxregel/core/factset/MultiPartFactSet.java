@@ -94,7 +94,7 @@ public class MultiPartFactSet extends AbstractFactSet {
     }
 
     @Override
-    public FactSet filter(Predicate<Fact, FactSet> predicate) {
+    public FactSet filter(Predicate<Fact> predicate) {
 //        return new MultiPartFactSet(Maps.mapValues(map, fs -> fs.filter(predicate)));
         return mapParts(fs -> fs.filter(predicate));
     }

@@ -13,10 +13,10 @@ import java.util.Map;
  * The first predicate is used.
  * @author Arvid Halma
  */
-public class AsFactsetPredicate extends AbstractPredicate<FactSet, FactSet> {
-    private final Predicate<Fact, FactSet> factPredicate;
+public class AsFactsetPredicate extends AbstractPredicate<FactSet> {
+    private final Predicate<Fact> factPredicate;
 
-    public AsFactsetPredicate(Predicate<Fact, FactSet> factPredicate) {
+    public AsFactsetPredicate(Predicate<Fact> factPredicate) {
         this.factPredicate = factPredicate;
     }
 

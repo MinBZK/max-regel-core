@@ -61,12 +61,12 @@ public class PredicateTest {
         Predicate namePredicate = eq("name", "Douglas");
         Predicate agePredicate = eq("age", 42);
 
-        Predicate<Fact, FactSet> andPredicate = namePredicate.and(agePredicate);
+        Predicate<Fact> andPredicate = namePredicate.and(agePredicate);
 
         assertTrue(andPredicate.test(fact));
 
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> andPredicateFalse = namePredicate.and(wrongAgePredicate);
+        Predicate<Fact> andPredicateFalse = namePredicate.and(wrongAgePredicate);
 
         assertFalse(andPredicateFalse.test(fact));
     }
@@ -77,12 +77,12 @@ public class PredicateTest {
         Predicate namePredicate = eq("name", "Douglas");
         Predicate agePredicate = eq("age", 42);
 
-        Predicate<Fact, FactSet> allPredicate = Predicates.and(namePredicate, agePredicate);
+        Predicate<Fact> allPredicate = Predicates.and(namePredicate, agePredicate);
 
         assertTrue(allPredicate.test(fact));
 
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> PredicateFalse = Predicates.and((Predicate) allPredicate, wrongAgePredicate);
+        Predicate<Fact> PredicateFalse = Predicates.and((Predicate) allPredicate, wrongAgePredicate);
 
         assertFalse(PredicateFalse.test(fact));
     }
@@ -93,12 +93,12 @@ public class PredicateTest {
         Predicate namePredicate = eq("name", "Douglas");
         Predicate agePredicate = eq("age", 43);
 
-        Predicate<Fact, FactSet> allPredicate = Predicates.or(namePredicate, agePredicate);
+        Predicate<Fact> allPredicate = Predicates.or(namePredicate, agePredicate);
 
         assertTrue(allPredicate.test(fact));
 
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> PredicateFalse = Predicates.or(agePredicate, wrongAgePredicate);
+        Predicate<Fact> PredicateFalse = Predicates.or(agePredicate, wrongAgePredicate);
 
         assertFalse(PredicateFalse.test(fact));
     }
@@ -109,12 +109,12 @@ public class PredicateTest {
         Predicate namePredicate = eq("name", "Douglas");
         Predicate wrongNamePredicate = eq("name", "John");
 
-        Predicate<Fact, FactSet> orPredicate = namePredicate.or(wrongNamePredicate);
+        Predicate<Fact> orPredicate = namePredicate.or(wrongNamePredicate);
 
         assertTrue(orPredicate.test(fact));
 
         Predicate wrongAgePredicate = eq("age", 25);
-        Predicate<Fact, FactSet> orBothWrongPredicate = wrongNamePredicate.or(wrongAgePredicate);
+        Predicate<Fact> orBothWrongPredicate = wrongNamePredicate.or(wrongAgePredicate);
 
         assertFalse(orBothWrongPredicate.test(fact));
     }
@@ -124,12 +124,12 @@ public class PredicateTest {
         Fact fact = new Fact(MapTerm.of("name", "Douglas", "age", 42));
         Predicate namePredicate = eq("name", "Douglas");
 
-        Predicate<Fact, FactSet> notPredicate = namePredicate.not();
+        Predicate<Fact> notPredicate = namePredicate.not();
 
         assertFalse(notPredicate.test(fact));
 
         Predicate wrongNamePredicate = eq("name", "John");
-        Predicate<Fact, FactSet> notWrongNamePredicate = wrongNamePredicate.not();
+        Predicate<Fact> notWrongNamePredicate = wrongNamePredicate.not();
 
         assertTrue(notWrongNamePredicate.test(fact));
     }
@@ -141,15 +141,15 @@ public class PredicateTest {
         Predicate agePredicate = eq("age", 42);
         Predicate wrongNamePredicate = eq("name", "John");
 
-        Predicate<Fact, FactSet> andPredicate = namePredicate.and(agePredicate);
-        Predicate<Fact, FactSet> orPredicate = namePredicate.or(wrongNamePredicate);
-        Predicate<Fact, FactSet> notPredicate = namePredicate.not();
+        Predicate<Fact> andPredicate = namePredicate.and(agePredicate);
+        Predicate<Fact> orPredicate = namePredicate.or(wrongNamePredicate);
+        Predicate<Fact> notPredicate = namePredicate.not();
 
-        Predicate<Fact, FactSet> complexPredicate = andPredicate.or(notPredicate);
+        Predicate<Fact> complexPredicate = andPredicate.or(notPredicate);
 
         assertTrue(complexPredicate.test(fact));
 
-        Predicate<Fact, FactSet> complexNegatedPredicate = notPredicate.and(wrongNamePredicate);
+        Predicate<Fact> complexNegatedPredicate = notPredicate.and(wrongNamePredicate);
 
         assertFalse(complexNegatedPredicate.test(fact));
     }

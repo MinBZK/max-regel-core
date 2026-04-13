@@ -39,15 +39,15 @@ public class Case extends AbstractRule {
         this.varName = requireNonNullArg(varName, "varName");
     }
 
-    public Case(Predicate<Fact, FactSet> condition, String varName) {
+    public Case(Predicate<Fact> condition, String varName) {
         this(Rule.identity(), condition, cnst(true), cnst(false), varName);
     }
 
-    public Case(Predicate<Fact, FactSet> condition, Rule thenValue, Rule defaultValue, String varName) {
+    public Case(Predicate<Fact> condition, Rule thenValue, Rule defaultValue, String varName) {
         this(Rule.identity(), condition, thenValue, defaultValue, varName);
     }
 
-    public Case(Rule select, Predicate<Fact, FactSet> condition, Rule thenValue, Rule defaultValue, String varName) {
+    public Case(Rule select, Predicate<Fact> condition, Rule thenValue, Rule defaultValue, String varName) {
         this.select = requireNonNullArg(select, "select");
         requireNonNullArg(condition, "condition");
         requireNonNullArg(thenValue, "thenValue");
@@ -97,7 +97,7 @@ public class Case extends AbstractRule {
      * @param condition the factset predicate
      * @param consequence the resulting value in case of success.
      */
-    public record LookupEntry(Predicate<Fact, FactSet> condition, Rule consequence) {}
+    public record LookupEntry(Predicate<Fact> condition, Rule consequence) {}
 
 
 }

@@ -112,7 +112,7 @@ public class JdbcFactSet extends MultiPartFactSet {
         if (x == null) {
             return "NULL";
         }
-        if (x instanceof Predicate<?,?> p) {
+        if (x instanceof Predicate<?> p) {
             return sqlPredicate(p.ast());
         }
 
@@ -173,7 +173,7 @@ public class JdbcFactSet extends MultiPartFactSet {
     }
 
     @Override
-    public FactSet filter(Predicate<Fact, FactSet> predicate) {
+    public FactSet filter(Predicate<Fact> predicate) {
         final String whereCondition = sqlPredicate(predicate);
         return new MultiPartFactSet(parts.stream().map(part -> new SinglePartFactSet(Iters.iterable(iterator(
                 SqlUtil.query(connection,"SELECT * FROM "+part+" WHERE " + whereCondition))), part)).collect(Collectors.toList()),
@@ -181,7 +181,7 @@ public class JdbcFactSet extends MultiPartFactSet {
     }
 
     @Override
-    public boolean any(Predicate<Fact, FactSet> predicate) {
+    public boolean any(Predicate<Fact> predicate) {
         try {
             for (String part : parts) {
                 if (SqlUtil.query(connection, "SELECT 1 AS success FROM " + part + " WHERE " + sqlPredicate(predicate) + " LIMIT 1;").next()) {

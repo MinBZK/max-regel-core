@@ -18,7 +18,7 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
  *
  * @author Arvid Halma
  */
-public class FieldEmpty extends AbstractPredicate<Fact, FactSet> {
+public class FieldEmpty extends AbstractPredicate<Fact> {
     private final String field;
 
     public FieldEmpty(String field) {

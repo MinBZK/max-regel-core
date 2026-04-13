@@ -10,7 +10,7 @@ import java.util.Map;
  * A predicate that checks if the provided FactSet is not empty.
  * @author Arvid Halma
  */
-public class Exists extends AbstractPredicate<FactSet, FactSet> {
+public class Exists extends AbstractPredicate<FactSet> {
 
     public Exists() {
     }
