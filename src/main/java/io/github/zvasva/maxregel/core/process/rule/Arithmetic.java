@@ -8,9 +8,7 @@ import io.github.zvasva.maxregel.core.term.Terms;
 
 import java.util.function.BinaryOperator;
 
-/**
- * Apply an arithmetic  of two fields of two parts.
- */
+/// Apply an arithmetic  of two fields of two parts.
 public class Arithmetic extends Zip {
     private final String op;
     private final String resultField;
@@ -43,63 +41,49 @@ public class Arithmetic extends Zip {
         return createNode(resultField, getSelectA().ast(), getSelectB().ast());
     }
 
-    /**
-     * Divide two values.
-     */
+    /// Divide two values.
     public static class Add extends Arithmetic {
         public Add(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "add", (a, b) -> a + b, selectA, selectB);
         }
     }
 
-    /**
-     * Subtract two values.
-     */
+    /// Subtract two values.
     public static class Sub extends Arithmetic {
         public Sub(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "sub", (a, b) -> a - b, selectA, selectB);
         }
     }
 
-    /**
-     * Multiply two values.
-     */
+    /// Multiply two values.
     public static class Mul extends Arithmetic {
         public Mul(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "mul", (a, b) -> a * b, selectA, selectB);
         }
     }
 
-    /**
-     * Divide two values.
-     */
+    /// Divide two values.
     public static class Div extends Arithmetic {
         public Div(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "div", (a, b) -> a / b, selectA, selectB);
         }
     }
 
-    /**
-     * The maximum of two values.
-     */
+    /// The maximum of two values.
     public static class Max extends Arithmetic {
         public Max(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "max", Math::max, selectA, selectB);
         }
     }
 
-    /**
-     * The minimum of two values.
-     */
+    /// The minimum of two values.
     public static class Min extends Arithmetic {
         public Min(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "min", Math::min, selectA, selectB);
         }
     }
 
-    /**
-     * The first argument raised to the power of the second argument.
-     */
+    /// The first argument raised to the power of the second argument.
     public static class Pow extends Arithmetic {
         public Pow(String resultField, Rule selectA, Rule selectB) {
             super(resultField, "pow", Math::pow, selectA, selectB);

@@ -9,10 +9,8 @@ import java.util.List;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * A script is a composition of multiple rules.
- * Each Script instance applies a series of rules to a given FactSet.
- */
+/// A script is a composition of multiple rules.
+/// Each Script instance applies a series of rules to a given FactSet.
 public class Script extends AbstractRule {
 
     protected List<Rule> rules;

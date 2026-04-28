@@ -8,26 +8,22 @@ import java.util.Collection;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 
-/**
- * The Inference class is responsible for deducing new facts from an initial set of facts
- * by iteratively applying a set of rules until no new facts can be inferred or a maximum
- * number of iterations is reached.
- *
- * @author Arvid Halma
- */
+/// The Inference class is responsible for deducing new facts from an initial set of facts
+/// by iteratively applying a set of rules until no new facts can be inferred or a maximum
+/// number of iterations is reached.
+///
+/// @author Arvid Halma
 public class Inference {
 
 
-    /**
-     * Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
-     * or until the maximum number of iterations is reached.
-     *
-     * @param givenFacts the initial set of facts.
-     * @param rules a collection of rules to apply to the factset.
-     * @param maxIterations the maximum number of iterations to perform.
-     * @return a FactSet containing all inferred facts.
-     * @throws RuntimeException if the maximum number of iterations is reached without convergence.
-     */
+    /// Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
+    /// or until the maximum number of iterations is reached.
+    ///
+    /// @param givenFacts the initial set of facts.
+    /// @param rules a collection of rules to apply to the factset.
+    /// @param maxIterations the maximum number of iterations to perform.
+    /// @return a FactSet containing all inferred facts.
+    /// @throws RuntimeException if the maximum number of iterations is reached without convergence.
     public static FactSet infer2(FactSet givenFacts, Collection<Rule> rules, Tracer tracer, int maxIterations) {
         FactSet totalUpdate = EMPTY;
 
@@ -57,16 +53,14 @@ public class Inference {
 
     }
 
-    /**
-     * Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
-     * or until the maximum number of iterations is reached.
-     *
-     * @param givenFacts the initial set of facts.
-     * @param rules a collection of rules to apply to the factset.
-     * @param maxIterations the maximum number of iterations to perform.
-     * @return a FactSet containing all inferred facts.
-     * @throws RuntimeException if the maximum number of iterations is reached without convergence.
-     */
+    /// Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
+    /// or until the maximum number of iterations is reached.
+    ///
+    /// @param givenFacts the initial set of facts.
+    /// @param rules a collection of rules to apply to the factset.
+    /// @param maxIterations the maximum number of iterations to perform.
+    /// @return a FactSet containing all inferred facts.
+    /// @throws RuntimeException if the maximum number of iterations is reached without convergence.
     public static FactSet infer3(FactSet givenFacts, Collection<Rule> rules, Tracer tracer, int maxIterations) {
         FactSet newFacts = EMPTY;
 
@@ -97,17 +91,15 @@ public class Inference {
 
 
 
-        /**
-         * Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
-         * or until the maximum number of iterations is reached.
-         *
-         * @param factset the initial set of facts.
-         * @param rules a collection of rules to apply to the factset.
-         * @param maxIterations the maximum number of iterations to perform.
-         * @return a FactSet containing all inferred facts.
-         * @throws RuntimeException if the maximum number of iterations is reached without convergence.
-         */
-    /*public static FactSet infer(FactSet factset, Collection<Rule> rules, Tracer tracer, int maxIterations) {
+        /// Infers new facts by applying a set of rules iteratively until no more new facts can be inferred
+        /// or until the maximum number of iterations is reached.
+        ///
+        /// @param factset the initial set of facts.
+        /// @param rules a collection of rules to apply to the factset.
+        /// @param maxIterations the maximum number of iterations to perform.
+        /// @return a FactSet containing all inferred facts.
+        /// @throws RuntimeException if the maximum number of iterations is reached without convergence.
+        /*public static FactSet infer(FactSet factset, Collection<Rule> rules, Tracer tracer, int maxIterations) {
         FactSet result = EMPTY;
 
         FactSet totalFactSet = factset;

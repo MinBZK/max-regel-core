@@ -4,13 +4,11 @@ import io.github.zvasva.maxregel.util.ReflectionUtil;
 
 import java.util.List;
 
-/**
- * RecordAsTerm is like {@link ObjectAsTerm},
- * but uses knowledge of getter names (in particular foo() instead of getFoo())
- * to speed up getting and checking terms using reflection.
- *
- * @author Arvid Halma
- */
+/// RecordAsTerm is like [ObjectAsTerm],
+/// but uses knowledge of getter names (in particular foo() instead of getFoo())
+/// to speed up getting and checking terms using reflection.
+///
+/// @author Arvid Halma
 public class RecordAsTerm extends AbstractTerm {
     protected final Object obj;
 

@@ -9,10 +9,8 @@ import java.util.List;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 import static io.github.zvasva.maxregel.core.process.rule.Rules.cnst;
 
-/**
- * The Case Rule goes through conditions and returns a value when the first condition is met (like an if-then-else statement).
- * Once a condition is true, it will stop reading and applies the corresponding rule. If no conditions are true, it returns the defaultValue.
- */
+/// The Case Rule goes through conditions and returns a value when the first condition is met (like an if-then-else statement).
+/// Once a condition is true, it will stop reading and applies the corresponding rule. If no conditions are true, it returns the defaultValue.
 public class FactSetCase extends AbstractRule {
 
     private final List<LookupEntry> lookup;
@@ -64,13 +62,11 @@ public class FactSetCase extends AbstractRule {
         return defaultValue.apply(facts);
     }
 
-    /**
-     * A single line in a case statement that reads like:
-     * if condition on selection holds, return the consequence.
-     * @param conditionSelect factset on which the predicate is tested.
-     * @param condition the factset predicate
-     * @param consequence the resulting value in case of success.
-     */
+    /// A single line in a case statement that reads like:
+    /// if condition on selection holds, return the consequence.
+    /// @param conditionSelect factset on which the predicate is tested.
+    /// @param condition the factset predicate
+    /// @param consequence the resulting value in case of success.
     public record LookupEntry(Rule conditionSelect, Predicate<FactSet, FactSet> condition, Rule consequence) {}
 
 }

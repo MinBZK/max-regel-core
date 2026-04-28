@@ -11,13 +11,11 @@ import java.util.Objects;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * FieldContains checks whether a specified field of a Fact object contains a specific value.
- * If the field is a list, the query element is checked on equality.
- * If the field is a string, the query should be a substring.
- *
- * @author Arvid Halma
- */
+/// FieldContains checks whether a specified field of a Fact object contains a specific value.
+/// If the field is a list, the query element is checked on equality.
+/// If the field is a string, the query should be a substring.
+///
+/// @author Arvid Halma
 public class FieldContains extends AbstractPredicate<Fact, FactSet> {
     private final String field;
     private final String y;

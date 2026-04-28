@@ -13,14 +13,12 @@ import java.util.function.Function;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 
-/**
- * Single Part Factset.
- * This {@link FactSet} is halfway there of being a fully general FactSet: it supports just a single section/part/label,
- * but otherwise satisfies all your needs. Take a look at {@link MultiPartFactSet} for a factset like a factset is meant
- * to be (but it'll use this class here and there).
- *
- * @author Arvid Halma
- */
+/// Single Part Factset.
+/// This [FactSet] is halfway there of being a fully general FactSet: it supports just a single section/part/label,
+/// but otherwise satisfies all your needs. Take a look at [MultiPartFactSet] for a factset like a factset is meant
+/// to be (but it'll use this class here and there).
+///
+/// @author Arvid Halma
 public class SinglePartFactSet extends AbstractFactSet {
     private final Collection<Fact> facts;
     private final String name;

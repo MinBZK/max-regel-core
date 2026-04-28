@@ -6,9 +6,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Apply a rule at most once, subsequent calls will return empty fact sets.
- */
+/// Apply a rule at most once, subsequent calls will return empty fact sets.
 public class Once extends AbstractRule {
 
     private boolean done;

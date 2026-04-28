@@ -12,9 +12,7 @@ import io.github.zvasva.maxregel.core.term.Term;
 import java.time.LocalDate;
 import java.util.Map;
 
-/**
- * Given a date field within a {@link Term}, add an age field.
- */
+/// Given a date field within a [Term], add an age field.
 public class ComputeAge extends AbstractRule {
     private final String dateField;
     private final String newAgeField;

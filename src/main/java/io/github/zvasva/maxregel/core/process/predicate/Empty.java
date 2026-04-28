@@ -6,10 +6,8 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A predicate that checks if the provided FactSet is empty.
- * @author Arvid Halma
- */
+/// A predicate that checks if the provided FactSet is empty.
+/// @author Arvid Halma
 public class Empty extends AbstractPredicate<FactSet, FactSet> {
 
     public Empty() {

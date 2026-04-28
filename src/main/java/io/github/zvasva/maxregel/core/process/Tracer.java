@@ -11,11 +11,9 @@ import io.github.zvasva.maxregel.util.PrettyPrint;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Updates the metadata of facts after a rule was applied to them.
- *
- * @author Arvid Halma
- */
+/// Updates the metadata of facts after a rule was applied to them.
+///
+/// @author Arvid Halma
 public interface Tracer {
 
     void apply(Rule rule, FactSet newFacts);
@@ -32,9 +30,7 @@ public interface Tracer {
     public static Tracer ASSIGNMENTS = new Assignments();
     public static Tracer FULL = new Full();
 
-    /**
-     * Never traces.
-     */
+    /// Never traces.
     class None implements Tracer {
         @Override
         public void apply(Rule rule, FactSet newFacts) {
@@ -42,9 +38,7 @@ public interface Tracer {
         }
     }
 
-    /**
-     * Always traces.
-     */
+    /// Always traces.
     class Full implements Tracer {
         @Override
         public void apply(Rule rule, FactSet newFacts) {
@@ -55,9 +49,7 @@ public interface Tracer {
         }
     }
 
-    /**
-     * Only traces assigments.
-     */
+    /// Only traces assigments.
     class Assignments implements Tracer {
         @Override
         public void apply(Rule rule, FactSet newFacts) {
@@ -76,9 +68,7 @@ public interface Tracer {
     }
 
 
-    /**
-     * Only traces assigments.
-     */
+    /// Only traces assigments.
     class AssignmentsSimple implements Tracer {
         @Override
         public void apply(Rule rule, FactSet newFacts) {

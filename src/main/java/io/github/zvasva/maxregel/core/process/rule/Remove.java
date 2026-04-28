@@ -5,9 +5,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Remove a part from a {@link FactSet}.
- */
+/// Remove a part from a [FactSet].
 public class Remove extends AbstractRule {
 
     private final String part;

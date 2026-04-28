@@ -7,11 +7,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-/**
- * Iterate over an {@link ResultSet}, mapping rows to {@link Map}s of column name, value.
- *
- * @author Arvid Halma
- */
+/// Iterate over an [ResultSet], mapping rows to [Map]s of column name, value.
+///
+/// @author Arvid Halma
 public class ResultSetIterator implements Iterator<Map<String, Object>> {
     private final ResultSet resultSet;
     private final ResultSetMetaData metaData;

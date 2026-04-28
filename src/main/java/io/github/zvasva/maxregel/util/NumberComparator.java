@@ -4,18 +4,15 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Comparator;
 
-/**
- * Comparator for Integer, Float, Double, ....
- * Undetermined comparisons (NaN, null, other type) are equal to 0, as far as numbers care.
- *
- * Also note that numbers will be converted to doubles. The smallest long value that cannot be exactly represented as a double is:
- * <code>
- * 2^53 + 1 = 9,007,199,254,740,993
- * </code>
- * So, long values greater than this bound will misbehave. A solution is to convert them to {@link BigDecimal}s, but this is computationally expensive.
- *
- * @author Arvid Halma
- */
+/// Comparator for Integer, Float, Double, ....
+/// Undetermined comparisons (NaN, null, other type) are equal to 0, as far as numbers care.
+/// Also note that numbers will be converted to doubles. The smallest long value that cannot be exactly represented as a double is:
+/// `
+/// 2^53 + 1 = 9,007,199,254,740,993
+/// `
+/// So, long values greater than this bound will misbehave. A solution is to convert them to [BigDecimal]s, but this is computationally expensive.
+///
+/// @author Arvid Halma
 public class NumberComparator implements Comparator<Number> {
 
     public int compare(Number x, Number y) {

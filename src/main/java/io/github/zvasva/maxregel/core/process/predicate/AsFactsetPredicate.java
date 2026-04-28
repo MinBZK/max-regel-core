@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * Converts a Fact {@link Predicate} into a FactSet {@link Predicate}.
- * The first predicate is used.
+ * The first fact is used to determine the outcome.
  * @author Arvid Halma
  */
 public class AsFactsetPredicate extends AbstractPredicate<FactSet, FactSet> {

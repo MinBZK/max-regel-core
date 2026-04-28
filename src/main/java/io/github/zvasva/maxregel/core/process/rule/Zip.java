@@ -12,11 +12,9 @@ import java.util.List;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Merge two {@link FactSet}s pairwise, according to a given fact operation.
- * Makes a new {@link FactSet}, its elements are calculated from the function and the elements
- * of input lists occurring at the same position in both {@link FactSet}s.
- */
+/// Merge two [FactSet]s pairwise, according to a given fact operation.
+/// Makes a new [FactSet], its elements are calculated from the function and the elements
+/// of input lists occurring at the same position in both [FactSet]s.
 public class Zip extends AbstractRule {
 
     private final Rule selectA, selectB;

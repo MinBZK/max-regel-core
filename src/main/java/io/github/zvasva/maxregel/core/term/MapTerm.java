@@ -8,11 +8,9 @@ import java.util.Map;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
 
-/**
- * A term backed by a {@link Map}.
- *
- * @author Arvid Halma
- */
+/// A term backed by a [Map].
+///
+/// @author Arvid Halma
 public class MapTerm extends AbstractTerm {
 
     private final Map<String, ?> map;
@@ -22,13 +20,11 @@ public class MapTerm extends AbstractTerm {
         this.map = requireNonNullArg(map, "map");
     }
 
-    /**
-     * Create a term with key-value pairs.
-     * E.g. o("key_1", 1, "key_2", 2)
-     *
-     * @param kvs interleaved key-values
-     * @return a new map
-     */
+    /// Create a term with key-value pairs.
+    /// E.g. o("key\_1", 1, "key\_2", 2)
+    ///
+    /// @param kvs interleaved key-values
+    /// @return a new map
     public static MapTerm of(Object... kvs) {
         if (kvs == null) {
             return new MapTerm(Map.of());

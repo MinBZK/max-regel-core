@@ -10,9 +10,7 @@ import io.github.zvasva.maxregel.util.PrettyPrint;
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Make sure some condition holds, or throw an exception
- */
+/// Make sure some condition holds, or throw an exception
 public class Assert extends AbstractRule {
 
     private final Rule select;

@@ -13,11 +13,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * Utility class for generating pretty-printed representations of predicates and fact sets.
- *
- * @author Arvid Halma
- */
+/// Utility class for generating pretty-printed representations of predicates and fact sets.
+///
+/// @author Arvid Halma
 public class PrettyPrint {
 
     ///// toString functions /////
@@ -184,25 +182,21 @@ public class PrettyPrint {
     }
 
 
-    /**
-     * Generates a pretty-printed Markdown table representation of the provided FactSet.
-     * Note: this only works nicely for FactSets with homogeneous parts, i.e. parts with facts that have the same fields.
-     *
-     * @param factset the FactSet to be pretty-printed.
-     * @return a string that represents the pretty-printed FactSet.
-     */
+    /// Generates a pretty-printed Markdown table representation of the provided FactSet.
+    /// Note: this only works nicely for FactSets with homogeneous parts, i.e. parts with facts that have the same fields.
+    ///
+    /// @param factset the FactSet to be pretty-printed.
+    /// @return a string that represents the pretty-printed FactSet.
     public static String pretty(FactSet factset) {
         return Iters.stream(factset.parts()).map(part -> pretty(factset.get(part), 10, part) ).collect(Collectors.joining("\n", "---\n", "---"));
     }
 
-    /**
-     * Generates a pretty-printed Markdown table representation of the provided FactSet.
-     * Note: this only works nicely for FactSets with homogeneous parts, i.e. parts with facts that have the same fields.
-     *
-     * @param factset the FactSet to be pretty-printed.
-     * @param limit maximum number of rows.
-     * @return a string that represents the pretty-printed FactSet.
-     */
+    /// Generates a pretty-printed Markdown table representation of the provided FactSet.
+    /// Note: this only works nicely for FactSets with homogeneous parts, i.e. parts with facts that have the same fields.
+    ///
+    /// @param factset the FactSet to be pretty-printed.
+    /// @param limit maximum number of rows.
+    /// @return a string that represents the pretty-printed FactSet.
     public static String pretty(FactSet factset, int limit) {
         return Iters.stream(factset.parts()).map(part -> pretty(factset.get(part), limit, part) ).collect(Collectors.joining("\n", "---\n", "---"));
     }

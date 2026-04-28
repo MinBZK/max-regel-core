@@ -24,11 +24,9 @@ import java.util.function.Function;
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static java.util.stream.Collectors.toCollection;
 
-/**
- * Utilities for creating and manipulating rules to process FactSets.
- * Various types of rules such as assignment, filtering, and composed
- * rules can be created using this class.
- */
+/// Utilities for creating and manipulating rules to process FactSets.
+/// Various types of rules such as assignment, filtering, and composed
+/// rules can be created using this class.
 public class Rules {
 
     public static String toString(Rule rule) {

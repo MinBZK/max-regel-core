@@ -12,9 +12,7 @@ import java.util.function.BiFunction;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * An aggregate rule is a function where multiple values are processed together to form a single summary statistic.
- */
+/// An aggregate rule is a function where multiple values are processed together to form a single summary statistic.
 public class Aggregate extends AbstractRule {
 
     private final Rule select;
@@ -56,9 +54,7 @@ public class Aggregate extends AbstractRule {
         return FactSets.create(MapTerm.of(op, y));
     }
 
-    /**
-     * Count
-     */
+    /// Count
     public static class Count extends Aggregate {
         public Count() {
             this( Rule.identity());
@@ -74,9 +70,7 @@ public class Aggregate extends AbstractRule {
         }
     }
 
-    /**
-     * Add all values of each term's first value.
-     */
+    /// Add all values of each term's first value.
     public static class Sum extends Aggregate {
         public Sum() {
             this( Rule.identity());
@@ -99,9 +93,7 @@ public class Aggregate extends AbstractRule {
         }
     }
 
-    /**
-     * Determine the minium value of each term's first value.
-     */
+    /// Determine the minium value of each term's first value.
     public static class Min extends Aggregate {
         public Min() {
             this( Rule.identity());
@@ -134,9 +126,7 @@ public class Aggregate extends AbstractRule {
         }
     }
 
-    /**
-     * Determine the maximum value of each term's first value.
-     */
+    /// Determine the maximum value of each term's first value.
     public static class Max extends Aggregate {
         public Max() {
             this( Rule.identity());

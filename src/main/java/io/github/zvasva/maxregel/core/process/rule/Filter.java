@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.core.term.Fact;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Filter a given FactSet based on a provided Predicate.
- */
+/// Filter a given FactSet based on a provided Predicate.
 public class Filter extends AbstractRule {
     private final Rule select;
     private final Predicate<Fact, FactSet> predicate;

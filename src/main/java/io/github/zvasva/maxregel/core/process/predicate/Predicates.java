@@ -8,30 +8,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/**
- * {@link Predicate} utilities.
- *
- * @author Arvid Halma
- */
+/// [Predicate] utilities.
+///
+/// @author Arvid Halma
 public class Predicates {
 
-    /**
-     * Check if all predicates hold
-     * @param predicates all predicates to check
-     * @return a single predicate that combines them
-     * @param <T> the argument type
-     */
+    /// Check if all predicates hold
+    /// @param predicates all predicates to check
+    /// @return a single predicate that combines them
+    /// @param <T> the argument type
     @SafeVarargs
     public static <T> Predicate<T, ?> and(Predicate<T, Object> ... predicates) {
         return Arrays.stream(predicates).reduce(new True<>(), Predicate::and);
     }
 
-    /**
-     * Check if at least some predicate hold
-     * @param predicates all predicates to check
-     * @return a single predicate that combines them
-     * @param <T> the argument type
-     */
+    /// Check if at least some predicate hold
+    /// @param predicates all predicates to check
+    /// @return a single predicate that combines them
+    /// @param <T> the argument type
     @SafeVarargs
     public static <T> Predicate<T, ?> or(Predicate<T, Object> ... predicates) {
         return Arrays.stream(predicates).reduce(new False<>(), Predicate::or);
@@ -72,10 +66,8 @@ public class Predicates {
         };
     }
 
-    /**
-     * Evaluates always to true, independent of the argument.
-     * @param <T> argument type
-     */
+    /// Evaluates always to true, independent of the argument.
+    /// @param <T> argument type
     public static class True<T> extends AbstractPredicate<T, Object> {
         @Override
         public boolean test(Object arg) {return true;}
@@ -84,10 +76,8 @@ public class Predicates {
         public AstNode ast() {return new AstNode("true", Map.of(), List.of());}
     }
 
-    /**
-     * Evaluates always to false, independent of the argument.
-     * @param <T> argument type
-     */
+    /// Evaluates always to false, independent of the argument.
+    /// @param <T> argument type
     public static class False<T> extends AbstractPredicate<T, Object> {
         @Override
         public boolean test(Object arg) {return false;}

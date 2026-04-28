@@ -7,16 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static io.github.zvasva.maxregel.util.Coerce.*;
 
-/**
- * Utility class providing various methods for working with reflection to inspect and manipulate objects.
- *
- * @author Arvid Halma
- */
+/// Utility class providing various methods for working with reflection to inspect and manipulate objects.
+///
+/// @author Arvid Halma
 public class ReflectionUtil {
 
-    /**
-     * The means of retrieving values from an object.
-     */
+    /// The means of retrieving values from an object.
     public enum ValueSource {GETTER, METHOD, FIELD, ANY}
 
     private static final Map<Class<?>, Map<String, Field>> DECLARED_FIELD_CACHE = new ConcurrentHashMap<>();
@@ -41,15 +37,13 @@ public class ReflectionUtil {
         };
     }
 
-    /**
-     * Retrieves the value of a specified field from a given object. The method first attempts to
-     * use a getter method for the field, if present. If no getter method is found, it directly
-     * accesses the field, even if it is private.
-     *
-     * @param obj       The object from which the field value is to be extracted.
-     * @param fieldName The name of the field whose value is to be retrieved.
-     * @return The value of the specified field, or null if the field does not exist or cannot be accessed.
-     */
+    /// Retrieves the value of a specified field from a given object. The method first attempts to
+    /// use a getter method for the field, if present. If no getter method is found, it directly
+    /// accesses the field, even if it is private.
+    ///
+    /// @param obj       The object from which the field value is to be extracted.
+    /// @param fieldName The name of the field whose value is to be retrieved.
+    /// @return The value of the specified field, or null if the field does not exist or cannot be accessed.
     public static Object getValue(Object obj, String fieldName) {
         if( fieldName == null || fieldName.isBlank())
             return null;
@@ -107,14 +101,12 @@ public class ReflectionUtil {
         } catch (Exception ignored) {}
         return null;
     }
-    /**
-     * Checks if a specified field has a corresponding getter method or is declared
-     * in the given object's class. The field can be a private or public field.
-     *
-     * @param obj The object whose class is inspected for the specified field.
-     * @param fieldName The name of the field to check for existence.
-     * @return true if the field or its getter method exists, false otherwise.
-     */
+    /// Checks if a specified field has a corresponding getter method or is declared
+    /// in the given object's class. The field can be a private or public field.
+    ///
+    /// @param obj The object whose class is inspected for the specified field.
+    /// @param fieldName The name of the field to check for existence.
+    /// @return true if the field or its getter method exists, false otherwise.
     public static boolean hasField(Object obj, String fieldName, ValueSource source) {
         return switch (source) {
             case GETTER -> hasGetterForField(obj, fieldName);
@@ -124,14 +116,12 @@ public class ReflectionUtil {
         };
     }
 
-    /**
-     * Checks if a specified field has a corresponding getter method or is declared
-     * in the given object's class. The field can be a private or public field.
-     *
-     * @param obj The object whose class is inspected for the specified field.
-     * @param fieldName The name of the field to check for existence.
-     * @return true if the field or its getter method exists, false otherwise.
-     */
+    /// Checks if a specified field has a corresponding getter method or is declared
+    /// in the given object's class. The field can be a private or public field.
+    ///
+    /// @param obj The object whose class is inspected for the specified field.
+    /// @param fieldName The name of the field to check for existence.
+    /// @return true if the field or its getter method exists, false otherwise.
     public static boolean hasField(Object obj, String fieldName) {
         if( fieldName == null || fieldName.isBlank())
             return false;
@@ -188,14 +178,12 @@ public class ReflectionUtil {
         return false;
     }
 
-    /**
-     * Retrieves the names of all getter methods from the given object's class.
-     * A method is considered a getter if its name starts with "get", it has no parameters,
-     * and it returns a value (i.e., it does not return void).
-     *
-     * @param obj The object whose class is inspected for getter methods.
-     * @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
-     */
+    /// Retrieves the names of all getter methods from the given object's class.
+    /// A method is considered a getter if its name starts with "get", it has no parameters,
+    /// and it returns a value (i.e., it does not return void).
+    ///
+    /// @param obj The object whose class is inspected for getter methods.
+    /// @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
     public static List<String> allGetterNames(Object obj) {
         List<String> getterValues = new ArrayList<>();
         Class<?> clazz = obj.getClass();
@@ -220,25 +208,21 @@ public class ReflectionUtil {
     }
 
 
-    /**
-     * Retrieves the field names from the given object's class.
-     *
-     * @param obj The object whose class is inspected for getter methods.
-     * @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
-     */
+    /// Retrieves the field names from the given object's class.
+    ///
+    /// @param obj The object whose class is inspected for getter methods.
+    /// @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
     public static List<String> allFieldNames(Object obj) {
         Class<?> clazz = obj.getClass();
         return Arrays.stream(clazz.getDeclaredFields()).map(Field::getName).toList();
     }
 
-    /**
-     * Retrieves the names of all getter methods from the given object's class.
-     * A method is considered a getter if its name starts with "get", it has no parameters,
-     * and it returns a value (i.e., it does not return void).
-     *
-     * @param obj The object whose class is inspected for getter methods.
-     * @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
-     */
+    /// Retrieves the names of all getter methods from the given object's class.
+    /// A method is considered a getter if its name starts with "get", it has no parameters,
+    /// and it returns a value (i.e., it does not return void).
+    ///
+    /// @param obj The object whose class is inspected for getter methods.
+    /// @return A list of names of the getter methods, with the "get" prefix removed and the first letter converted to lowercase.
     public static List<String> allGetLikeNames(Object obj) {
         List<String> result = new ArrayList<>();
         Class<?> clazz = obj.getClass();
@@ -267,13 +251,11 @@ public class ReflectionUtil {
         return result;
     }
 
-    /**
-     * Converts an object's getter methods to a Map, where the keys are the property names
-     * (derived from the getter method names) and the values are the corresponding property values.
-     *
-     * @param obj The object from which property names and values are to be extracted.
-     * @return A Map containing property names and values derived from the object's getter methods.
-     */
+    /// Converts an object's getter methods to a Map, where the keys are the property names
+    /// (derived from the getter method names) and the values are the corresponding property values.
+    ///
+    /// @param obj The object from which property names and values are to be extracted.
+    /// @return A Map containing property names and values derived from the object's getter methods.
     public static Map<String, Object> asMap(Object obj) {
         Map<String, Object> result = new LinkedHashMap<>();
         for (String getter : allGetLikeNames(obj)) {
@@ -282,14 +264,12 @@ public class ReflectionUtil {
         return result;
     }
 
-    /**
-     * Overwrite target fields with source fields. Later sources will overwrite earlier ones (if not null).
-     *
-     * @param target the object to update
-     * @param sources an objects whose values are used in order
-     * @param <T> the target type
-     * @return the target with updated fields
-     */
+    /// Overwrite target fields with source fields. Later sources will overwrite earlier ones (if not null).
+    ///
+    /// @param target the object to update
+    /// @param sources an objects whose values are used in order
+    /// @param <T> the target type
+    /// @return the target with updated fields
     public static <T> T assignFields(T target, List<?> sources) {
         for (Object source : sources) {
             if(source instanceof Map m) {
@@ -301,27 +281,23 @@ public class ReflectionUtil {
         return target;
     }
 
-    /**
-     * Overwrite target fields with source fields, if the source field is not null.
-     *
-     * @param target the object to update
-     * @param source an object whose values are used
-     * @param <T> the target type
-     * @return the target with updated fields
-     */
+    /// Overwrite target fields with source fields, if the source field is not null.
+    ///
+    /// @param target the object to update
+    /// @param source an object whose values are used
+    /// @param <T> the target type
+    /// @return the target with updated fields
     public static <T> T assignFields(T target, Object source) {
         return assignFields(target, source, false);
     }
 
-    /**
-     * Overwrite target fields with source fields.
-     *
-     * @param target the object to update
-     * @param source an object whose values are used
-     * @param overwriteWithNull overwrite the target field, even if the source field is null
-     * @param <T> the target type
-     * @return the target with updated fields
-     */
+    /// Overwrite target fields with source fields.
+    ///
+    /// @param target the object to update
+    /// @param source an object whose values are used
+    /// @param overwriteWithNull overwrite the target field, even if the source field is null
+    /// @param <T> the target type
+    /// @return the target with updated fields
     public static <T> T assignFields(T target, Object source, boolean overwriteWithNull) {
         final Field[] sourceFields = source.getClass().getDeclaredFields();
         for (Field sourceField : sourceFields) {
@@ -334,27 +310,23 @@ public class ReflectionUtil {
         return target;
     }
 
-    /**
-     * Write given map values to the fields of the target object if the value is not null.
-     *
-     * @param target the object to update
-     * @param source a map with field names as key, the values as Object
-     * @param <T>    the type of object
-     * @return the updated object
-     */
+    /// Write given map values to the fields of the target object if the value is not null.
+    ///
+    /// @param target the object to update
+    /// @param source a map with field names as key, the values as Object
+    /// @param <T>    the type of object
+    /// @return the updated object
     public static <T> T assignFieldsFromMap(T target, Map<String, ?> source) {
         return assignFieldsFromMap(target, source, false);
     }
 
-    /**
-     * Write given map values to the fields of the target object.
-     *
-     * @param target the object to update
-     * @param source a map with field names as key, the values as Object
-     * @param overwriteWithNull overwrite the target field, even if the source field is null
-     * @param <T>    the type of object
-     * @return the updated object
-     */
+    /// Write given map values to the fields of the target object.
+    ///
+    /// @param target the object to update
+    /// @param source a map with field names as key, the values as Object
+    /// @param overwriteWithNull overwrite the target field, even if the source field is null
+    /// @param <T>    the type of object
+    /// @return the updated object
     public static <T> T assignFieldsFromMap(T target, Map<String, ?> source, boolean overwriteWithNull) {
         for (Map.Entry<String, ?> sourceEntry : source.entrySet()) {
             assignField(target, sourceEntry.getKey(), sourceEntry.getValue(), overwriteWithNull);
@@ -362,15 +334,13 @@ public class ReflectionUtil {
         return target;
     }
 
-    /**
-     * Write given map values to the fields of the target object.
-     *
-     * @param target the object to update
-     * @param source a map with field names as key, the values as Object
-     * @param overwriteWithNull overwrite the target field, even if the source field is null
-     * @param <T>    the type of object
-     * @return the updated object
-     */
+    /// Write given map values to the fields of the target object.
+    ///
+    /// @param target the object to update
+    /// @param source a map with field names as key, the values as Object
+    /// @param overwriteWithNull overwrite the target field, even if the source field is null
+    /// @param <T>    the type of object
+    /// @return the updated object
     public static <T> T assignFieldsFromMap(T target, Map<String, ?> source, boolean overwriteWithNull, ValueSource valueSource) {
         for (Map.Entry<String, ?> sourceEntry : source.entrySet()) {
             assignField(target, sourceEntry.getKey(), sourceEntry.getValue(), overwriteWithNull);
@@ -379,29 +349,25 @@ public class ReflectionUtil {
     }
 
 
-    /**
-     * Write given value to the target's field if it exists and the value is not null.
-     *
-     * @param <T>               the type of object
-     * @param target            the object to update
-     * @param fieldName         key
-     * @param value             new value
-     * @return the updated object
-     */
+    /// Write given value to the target's field if it exists and the value is not null.
+    ///
+    /// @param <T>               the type of object
+    /// @param target            the object to update
+    /// @param fieldName         key
+    /// @param value             new value
+    /// @return the updated object
     public static <T> T assignField(T target, String fieldName, Object value) {
         return assignField(target, fieldName, value, false);
     }
 
-    /**
-     * Write given value to the target's field if it exists.
-     *
-     * @param <T>               the type of object
-     * @param target            the object to update
-     * @param fieldName         key
-     * @param value             new value
-     * @param overwriteWithNull overwrite the target field, even if the source field is null
-     * @return the updated object
-     */
+    /// Write given value to the target's field if it exists.
+    ///
+    /// @param <T>               the type of object
+    /// @param target            the object to update
+    /// @param fieldName         key
+    /// @param value             new value
+    /// @param overwriteWithNull overwrite the target field, even if the source field is null
+    /// @return the updated object
     public static <T> T assignField(T target, String fieldName, Object value, boolean overwriteWithNull) {
         if(!overwriteWithNull && value == null){
             return target;

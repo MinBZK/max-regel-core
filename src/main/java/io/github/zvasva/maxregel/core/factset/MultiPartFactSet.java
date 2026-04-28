@@ -12,13 +12,11 @@ import java.util.function.UnaryOperator;
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.util.Iters.concat;
 
-/**
- * Multi Part Factset.
- * The implementation uses an (in memory) {@link Map} to segment facts by part (key).
- * It is the most basic, generic implementation of a {@link FactSet}.
- *
- * @author Arvid Halma
- */
+/// Multi Part Factset.
+/// The implementation uses an (in memory) [Map] to segment facts by part (key).
+/// It is the most basic, generic implementation of a [FactSet].
+///
+/// @author Arvid Halma
 public class MultiPartFactSet extends AbstractFactSet {
 
     private final Map<String, FactSet> map;

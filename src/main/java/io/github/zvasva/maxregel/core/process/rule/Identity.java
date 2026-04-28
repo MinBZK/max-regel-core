@@ -3,9 +3,7 @@ package io.github.zvasva.maxregel.core.process.rule;
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.process.AstNode;
 
-/**
- * A rule that does nothing.
- */
+/// A rule that does nothing.
 public class Identity extends AbstractRule {
 
 

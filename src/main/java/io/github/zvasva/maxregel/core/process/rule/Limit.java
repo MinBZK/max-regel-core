@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.util.Iters;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Retrieve at most n facts from a FactSet.
- */
+/// Retrieve at most n facts from a FactSet.
 public class Limit extends AbstractRule {
 
     private final Rule select;

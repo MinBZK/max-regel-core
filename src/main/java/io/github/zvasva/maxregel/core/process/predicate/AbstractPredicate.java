@@ -2,13 +2,11 @@ package io.github.zvasva.maxregel.core.process.predicate;
 
 import java.util.Objects;
 
-/**
- * Abstract predicate class that implements equals(), hashcode() and toString(), based on {@link #ast()}.
- *
- * @param <T> the type of object that this predicate tests.
- * @param <B> the type of the predicate's parameter data, which can be bound to the predicate.
- * @author Arvid Halma
- */
+/// Abstract predicate class that implements equals(), hashcode() and toString(), based on [#ast()].
+///
+/// @param <T> the type of object that this predicate tests.
+/// @param <B> the type of the predicate's parameter data, which can be bound to the predicate.
+/// @author Arvid Halma
 public abstract class AbstractPredicate<T, B> implements Predicate<T, B>{
 
 

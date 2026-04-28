@@ -6,11 +6,9 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Add "variable" Factset, defined by a {@link Rule}.
- * The Assignment class implements the Rule interface, representing an assignment operation
- * that joins the result of applying a rule.
- */
+/// Add "variable" Factset, defined by a [Rule].
+/// The Assignment class implements the Rule interface, representing an assignment operation
+/// that joins the result of applying a rule.
 public class AssignUpdate extends Assign {
 
     public AssignUpdate(String variable, Rule rule) {

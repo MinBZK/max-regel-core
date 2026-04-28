@@ -11,9 +11,7 @@ import java.util.stream.Collectors;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Sorts a FactSet based on a specified field in either ascending or descending order.
- */
+/// Sorts a FactSet based on a specified field in either ascending or descending order.
 public class Sort extends AbstractRule {
     private final Rule select;
     private final String fieldName;

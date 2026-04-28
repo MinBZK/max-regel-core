@@ -10,11 +10,9 @@ import java.util.stream.Collectors;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
 
-/**
- * A fact is a container for a {@link Term}, with extra metadata.
- *
- * @author Arvid Halma
- */
+/// A fact is a container for a [Term], with extra metadata, called `info`
+///
+/// @author Arvid Halma
 public class Fact {
 
     private final Term term;

@@ -14,9 +14,7 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Just pick certain fields from each Fact's  {@link Term}s.
- */
+/// Just pick certain fields from each Fact's  [Term]s.
 public class SelectFields extends AbstractRule {
     private final Rule select;
     private final List<String> fieldNames;

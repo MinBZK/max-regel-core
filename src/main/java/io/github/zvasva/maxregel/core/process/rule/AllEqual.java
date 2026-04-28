@@ -10,10 +10,8 @@ import java.util.Objects;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Checks if all values of a field in a FactSet are equal.
- * Returns a single fact with a boolean result.
- */
+/// Checks if all values of a field in a FactSet are equal.
+/// Returns a single fact with a boolean result.
 public class AllEqual extends AbstractRule {
 
     private final Rule select;

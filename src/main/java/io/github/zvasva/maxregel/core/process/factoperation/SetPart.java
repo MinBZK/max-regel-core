@@ -6,10 +6,8 @@ import io.github.zvasva.maxregel.core.process.rule.AbstractRule;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Set the part name for a factset. All facts will be available under the new name.
- * @author Arvid Halma
- */
+/// Set the part name for a factset. All facts will be available under the new name.
+/// @author Arvid Halma
 public class SetPart extends AbstractRule {
 
     private String name;

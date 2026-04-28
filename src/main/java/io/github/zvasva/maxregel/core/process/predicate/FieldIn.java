@@ -11,12 +11,10 @@ import java.util.Objects;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Field is contained in a given list. FieldIn is a Predicate implementation that checks if the value of a given field
- * in a Fact object is part of a specified list of values.
- *
- * @author Arvid Halma
- */
+/// Field is contained in a given list. FieldIn is a Predicate implementation that checks if the value of a given field
+/// in a Fact object is part of a specified list of values.
+///
+/// @author Arvid Halma
 public class FieldIn extends AbstractPredicate<Fact, FactSet> {
     private final String field;
     private final Object ys;

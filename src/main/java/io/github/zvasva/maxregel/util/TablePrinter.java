@@ -10,11 +10,9 @@ import java.util.Set;
 
 import static java.lang.String.format;
 
-/**
- * Render a table in text.
- *
- * @author Arvid Halma
- */
+/// Render a table in text.
+///
+/// @author Arvid Halma
 public final class TablePrinter {
 
     private static final char BORDER_KNOT = '|'; // +

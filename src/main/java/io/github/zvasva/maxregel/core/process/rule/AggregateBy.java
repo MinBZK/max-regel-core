@@ -15,9 +15,7 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * An aggregate rule is a function where multiple values are processed together to form a single summary statistic.
- */
+/// An aggregate rule is a function where multiple values are processed together to form a single summary statistic.
 public class AggregateBy extends AbstractRule {
 
     private final Rule select;

@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.core.process.UnaryOperation;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Update the part names by giving them all a prefix.
- */
+/// Update the part names by giving them all a prefix.
 public class NamePrefix extends AbstractRule {
 
     private final Rule select;

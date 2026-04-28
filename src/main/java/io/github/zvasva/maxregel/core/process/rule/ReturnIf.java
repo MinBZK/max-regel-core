@@ -8,9 +8,7 @@ import io.github.zvasva.maxregel.core.process.predicate.Predicate;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Indicate a possible early exit of the inference process.
- */
+/// Indicate a possible early exit of the inference process.
 public class ReturnIf extends AbstractRule {
 
     Rule conditionSelect;

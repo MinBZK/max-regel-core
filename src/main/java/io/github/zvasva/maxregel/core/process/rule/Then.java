@@ -6,9 +6,7 @@ import io.github.zvasva.maxregel.core.process.Tracer;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * First apply rule <i>a</i>, then apply rule <i>b</i> on the result.
- */
+/// First apply rule _a_, then apply rule _b_ on the result.
 public class Then extends AbstractRule {
 
     private final Rule a, b;

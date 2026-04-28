@@ -12,12 +12,10 @@ import java.util.Objects;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * FieldEmpty checks whether a specified field of a Fact object is null, empty, blank or other kinds
- * of "falsy" values.
- *
- * @author Arvid Halma
- */
+/// FieldEmpty checks whether a specified field of a Fact object is null, empty, blank or other kinds
+/// of "falsy" values.
+///
+/// @author Arvid Halma
 public class FieldEmpty extends AbstractPredicate<Fact, FactSet> {
     private final String field;
 

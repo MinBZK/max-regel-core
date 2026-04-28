@@ -13,16 +13,14 @@ import java.util.function.Function;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 
-/**
- * The Concat class extends AbstractFactSet to provide a composite FactSet
- * that aggregates two specified FactSets into one.
- * <p>
- * This class allows operations on the combined data from two FactSets to be
- * performed as though they were a single FactSet, but in fact leaving them untouched.
- * This make concatenation an operation in constant time and space, i.e. O(1).
- *
- *  @author Arvid Halma
- */
+/// The Concat class extends AbstractFactSet to provide a composite FactSet
+/// that aggregates two specified FactSets into one.
+///
+/// This class allows operations on the combined data from two FactSets to be
+/// performed as though they were a single FactSet, but in fact leaving them untouched.
+/// This make concatenation an operation in constant time and space, i.e. O(1).
+///
+/// @author Arvid Halma
 public class Concat extends AbstractFactSet {
     private final FactSet a, b;
 

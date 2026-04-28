@@ -7,12 +7,10 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Conjunction: combines two predicates and returns true if both predicates are true.
- * @param <T> The type of objects that this predicate tests.
- * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
- * @author Arvid Halma
- */
+/// Conjunction: combines two predicates and returns true if both predicates are true.
+/// @param <T> The type of objects that this predicate tests.
+/// @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
+/// @author Arvid Halma
 public class And<T, B> extends AbstractPredicate<T, B> {
     private final Predicate<T, B> a, b;
 

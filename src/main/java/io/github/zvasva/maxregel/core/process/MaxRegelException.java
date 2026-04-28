@@ -1,12 +1,10 @@
 package io.github.zvasva.maxregel.core.process;
 
-/**
- * Denotes a logical or process error.
- * By making this {@link RuntimeException} more identifiable, we can catch logical errors from lower level exceptions,
- * and treat them differently (think of HTTP exception mappers for end user messages)
- *
- * @author Arvid Halma
- */
+/// Denotes a logical or process error.
+/// By making this [RuntimeException] more identifiable, we can catch logical errors from lower level exceptions,
+/// and treat them differently (think of HTTP exception mappers for end user messages)
+///
+/// @author Arvid Halma
 public class MaxRegelException extends RuntimeException {
 
     public MaxRegelException() {

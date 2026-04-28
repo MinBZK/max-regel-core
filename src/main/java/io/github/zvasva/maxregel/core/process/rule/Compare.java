@@ -8,9 +8,7 @@ import io.github.zvasva.maxregel.core.term.MapTerm;
 
 import java.util.function.BiFunction;
 
-/**
- * Compare two facts and return the result as a term.
- */
+/// Compare two facts and return the result as a term.
 public class Compare extends Zip {
     private final String op;
     private final String resultField;

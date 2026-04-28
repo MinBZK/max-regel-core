@@ -12,11 +12,9 @@ import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 import static io.github.zvasva.maxregel.core.process.rule.Rules.cnst;
 
-/**
- * The Case Rule goes through conditions and returns a value when the first condition is met (like an if-then-else statement).
- * Once a condition is true, it will stop reading and applies the corresponding rule. If no conditions are true, it returns the defaultValue.
- * The case is applied to all facts in the argument. Corresponding results are added to overall resulting factset.
- */
+/// The Case Rule goes through conditions and returns a value when the first condition is met (like an if-then-else statement).
+/// Once a condition is true, it will stop reading and applies the corresponding rule. If no conditions are true, it returns the defaultValue.
+/// The case is applied to all facts in the argument. Corresponding results are added to overall resulting factset.
 public class Case extends AbstractRule {
 
     private final Rule select;

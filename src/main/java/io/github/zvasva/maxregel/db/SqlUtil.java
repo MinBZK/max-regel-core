@@ -4,10 +4,8 @@ import java.sql.*;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Helper functions for java.sql objects.
- * @author Arvid Halma
- */
+/// Helper functions for java.sql objects.
+/// @author Arvid Halma
 public class SqlUtil {
 
     public static ResultSet query(Connection connection, String sql) {

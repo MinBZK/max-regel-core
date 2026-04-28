@@ -5,9 +5,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Create a combined factset from two factset selections.
- */
+/// Create a combined factset from two factset selections.
 public class Concat extends AbstractRule {
     private final Rule selectA, selectB;
 

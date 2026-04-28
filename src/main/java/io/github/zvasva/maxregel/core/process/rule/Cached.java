@@ -5,9 +5,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Apply a rule at most once, its result will be stored and returned in later calls without evaluating the rule again.
- */
+/// Apply a rule at most once, its result will be stored and returned in later calls without evaluating the rule again.
 public class Cached extends AbstractRule {
 
     private final Rule rule;

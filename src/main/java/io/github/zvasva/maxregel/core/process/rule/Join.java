@@ -6,9 +6,7 @@ import io.github.zvasva.maxregel.core.process.AstNode;
 
 import java.util.Objects;
 
-/**
- * Join two parts on the given field.
- */
+/// Join two parts on the given field.
 public class Join extends AbstractRule {
     private final Rule selectA, selectB;
     private final String fieldA, fieldB;

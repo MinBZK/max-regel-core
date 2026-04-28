@@ -11,13 +11,10 @@ import java.util.List;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Apply a Rule to all rows, each resulting in new rows (zero or more),
- * and collect them into a new {@link FactSet}.
- *
- * Consider using a {@link FactSet#factOperation()} when mapping fact to fact
- * in other cases.
- */
+/// Apply a Rule to all rows, each resulting in new rows (zero or more),
+/// and collect them into a new [FactSet].
+/// Consider using a [FactSet#factOperation()] when mapping fact to fact
+/// in other cases.
 public class FlatMap extends AbstractRule {
     private final Rule select;
     private final Rule transform;

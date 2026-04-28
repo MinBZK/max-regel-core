@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.core.process.Tracer;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Select a part of the FactSet.
- */
+/// Select a part of the FactSet.
 public class From extends AbstractRule {
 
     private final String part;

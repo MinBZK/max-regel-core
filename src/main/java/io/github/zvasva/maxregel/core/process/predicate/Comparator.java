@@ -15,11 +15,10 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * A comparison function, which imposes a total ordering on some collection of objects.
- * It takes special care of comparing Numbers (e.g. Long &gt; Double).
- * @author Arvid Halma
- */
+/// A comparison function, which imposes a total ordering on some collection of objects.
+/// It takes special care of comparing Numbers (e.g. Long > Double).
+///
+/// @author Arvid Halma
 public class Comparator extends AbstractPredicate<Fact, FactSet> {
     private final String op;
     private final String field;
@@ -128,10 +127,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field equals. The FieldEq class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is equal to a given value.
-     */
+    /// Field equals. The FieldEq class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is equal to a given value.
     public static class FieldEq extends Comparator {
         public FieldEq() {
             super("field_eq", 0, true);
@@ -142,10 +139,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field not-equals. The FieldEq class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is NOT equal to a given value.
-     */
+    /// Field not-equals. The FieldEq class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is NOT equal to a given value.
     public static class FieldNeq extends Comparator {
         public FieldNeq() {
             super("field_neq", 0, false);
@@ -156,10 +151,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field greater than. The FieldGt class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is greater than a given value.
-     */
+    /// Field greater than. The FieldGt class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is greater than a given value.
     public static class FieldGt extends Comparator {
         public FieldGt() {
             super("field_gt", 1, false);
@@ -170,10 +163,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field greater than or equals (>=). The FieldGt class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is greater than or equals a given value.
-     */
+    /// Field greater than or equals (>=). The FieldGt class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is greater than or equals a given value.
     public static class FieldGeq extends Comparator {
         public FieldGeq() {
             super("field_geq", 1, true);
@@ -184,10 +175,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field less than. The FieldLt class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is less than a given value.
-     */
+    /// Field less than. The FieldLt class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is less than a given value.
     public static class FieldLt extends Comparator {
         public FieldLt() {
             super("field_lt", -1, false);
@@ -198,10 +187,8 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         }
     }
 
-    /**
-     * Field less than or equals (&leq;). The FieldLt class is a Predicate implementation that evaluates whether a specified field of
-     * a Fact object is less than or equals a given value.
-     */
+    /// Field less than or equals (≤). The FieldLt class is a Predicate implementation that evaluates whether a specified field of
+    /// a Fact object is less than or equals a given value.
     public static class FieldLeq extends Comparator {
         public FieldLeq() {
             super("field_leq", -1, true);

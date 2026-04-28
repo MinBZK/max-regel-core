@@ -5,9 +5,7 @@ import io.github.zvasva.maxregel.core.factset.MultiPartFactSet;
 import io.github.zvasva.maxregel.core.process.AstNode;
 
 
-/**
- * Load all data in memory, backed by a clean {@link MultiPartFactSet}
- */
+/// Load all data in memory, backed by a clean [MultiPartFactSet]
 public class Consolidate extends AbstractRule {
 
     public Consolidate() {}

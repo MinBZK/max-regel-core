@@ -21,30 +21,25 @@ import java.util.stream.Collectors;
 
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 
-/**
- * A factset backed by an existing SQL database with JDBC support.
- * This allows a database table to be treated as {@link FactSet} in an efficient manner.
- * <p>
- * For some operation, we don't need to retrieve all rows as facts in memory.
- * Take {@link #size()} as an easy example. We don't need all records; but can simply
- * <code>SELECT count(*) FROM table</code>. And, with a bit of effort, filtering using {@link Predicate}s can be mapped
- * into SQL queries too.
- *
- * Getting and removing parts is done lazily: i.e. just returning a reconfigured {@link JdbcFactSet}, making it efficient (O(1)).
- *
- * @author Arvid Halma
- */
+/// A factset backed by an existing SQL database with JDBC support.
+/// This allows a database table to be treated as [FactSet] in an efficient manner.
+///
+/// For some operation, we don't need to retrieve all rows as facts in memory.
+/// Take [#size()] as an easy example. We don't need all records; but can simply
+/// `SELECT count(\*) FROM table`. And, with a bit of effort, filtering using [Predicate]s can be mapped
+/// into SQL queries too.
+/// Getting and removing parts is done lazily: i.e. just returning a reconfigured [JdbcFactSet], making it efficient (O(1)).
+///
+/// @author Arvid Halma
 public class JdbcFactSet extends MultiPartFactSet {
 
     private final Connection connection;
 
     private final Set<String> parts;
 
-    /**
-     * Create a factset backed by an existing SQL database.
-     * @param connection a DB connection (left open)
-     * @param parts the names of the tables, that will form the parts of this factset.
-     */
+    /// Create a factset backed by an existing SQL database.
+    /// @param connection a DB connection (left open)
+    /// @param parts the names of the tables, that will form the parts of this factset.
     public JdbcFactSet(Connection connection, Set<String> parts, UnaryOperation<Fact> factOperation) {
         super(List.of(), factOperation);
         this.connection = connection;

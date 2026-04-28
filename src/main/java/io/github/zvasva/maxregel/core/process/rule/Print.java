@@ -6,9 +6,7 @@ import io.github.zvasva.maxregel.util.PrettyPrint;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Prints the factset to the console
- */
+/// Prints the factset to the console
 public class Print extends AbstractRule {
 
     private final Rule select;

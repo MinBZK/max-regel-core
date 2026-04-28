@@ -8,17 +8,13 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-/**
- * Empty factset (no parts, no facts).
- * It is a commonly used value, and deserves its own direct implementation for efficiency (instead of extending {@link AbstractFactSet}).
- *
- * @author Arvid Halma
- */
+/// Empty factset (no parts, no facts).
+/// It is a commonly used value, and deserves its own direct implementation for efficiency (instead of extending [AbstractFactSet]).
+///
+/// @author Arvid Halma
 public class Empty implements FactSet {
 
-    /**
-     * Empty factset instance.
-     */
+    /// Empty factset instance.
     public static final FactSet EMPTY = new Empty();
 
     private Empty() {}

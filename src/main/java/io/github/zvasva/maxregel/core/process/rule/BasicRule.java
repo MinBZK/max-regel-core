@@ -11,13 +11,11 @@ import java.util.function.UnaryOperator;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * BasicRule is a concrete implementation of the Rule interface that applies a specified
- * transformation to a FactSet.
- * <p>
- * It encapsulates an identification string, additional information as a map,
- * and a UnaryOperator to perform the rule application.
- */
+/// BasicRule is a concrete implementation of the Rule interface that applies a specified
+/// transformation to a FactSet.
+///
+/// It encapsulates an identification string, additional information as a map,
+/// and a UnaryOperator to perform the rule application.
 public class BasicRule extends AbstractRule {
 
     private final String op;

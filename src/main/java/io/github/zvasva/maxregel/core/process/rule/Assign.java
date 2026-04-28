@@ -10,11 +10,9 @@ import java.util.Map;
 import static io.github.zvasva.maxregel.core.factset.Empty.EMPTY;
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Set/replace "variable" Factset, defined by a {@link Rule}.
- * The Assignment class implements the Rule interface, representing an assignment operation
- * that removes a possible old result, and adding the result of applying a rule.
- */
+/// Set/replace "variable" Factset, defined by a [Rule].
+/// The Assignment class implements the Rule interface, representing an assignment operation
+/// that removes a possible old result, and adding the result of applying a rule.
 public abstract class Assign extends AbstractRule {
     protected final String variable;
     protected final Rule body;
@@ -41,12 +39,10 @@ public abstract class Assign extends AbstractRule {
         return info;
     }
 
-    /**
-     * Add the newlyAssigned to the input to create the output factset
-     * @param facts input
-     * @param update new facts
-     * @return a factset with a new part (variable = some name) or parts (variable = *)
-     */
+    /// Add the newlyAssigned to the input to create the output factset
+    /// @param facts input
+    /// @param update new facts
+    /// @return a factset with a new part (variable = some name) or parts (variable = \*)
     private RuleResult assignToTotal(FactSet facts, FactSet update) {
         if ("*".equals(variable)) {
             FactSet newlyAssigned = EMPTY;
@@ -69,11 +65,9 @@ public abstract class Assign extends AbstractRule {
     }
 
 
-    /**
-     * Add a part to the input factset
-     * @param facts input facts
-     * @return input facts plus new part under variable name
-     */
+    /// Add a part to the input factset
+    /// @param facts input facts
+    /// @return input facts plus new part under variable name
     @Override
     public FactSet apply(FactSet facts) {
         // Pseudocode: facts.variable = rule(facts)

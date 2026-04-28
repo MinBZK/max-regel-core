@@ -7,13 +7,11 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * A predicate that wraps another predicate and negates its result.
- *
- * @param <T> The type of objects that this predicate tests.
- * @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
- * @author Arvid Halma
- */
+/// A predicate that wraps another predicate and negates its result.
+///
+/// @param <T> The type of objects that this predicate tests.
+/// @param <B> The type of the predicate's parameter data, which can be bound to the predicate.
+/// @author Arvid Halma
 public class Not<T, B> extends AbstractPredicate<T, B> {
     private final Predicate<T, B> p;
 

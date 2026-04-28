@@ -9,13 +9,11 @@ import io.github.zvasva.maxregel.util.Collections;
 
 import java.util.Map;
 
-/**
- * Merges new info into a fact.
- * @author Arvid Halma
- */
+/// Merges new info into a fact.
+/// @author Arvid Halma
 public class AddFactInfo extends AbstractRule {
 
-    private Map<String, Object> newInfo;
+    private final Map<String, Object> newInfo;
 
     public AddFactInfo(Map<String, Object> newInfo) {
         this.newInfo = newInfo;

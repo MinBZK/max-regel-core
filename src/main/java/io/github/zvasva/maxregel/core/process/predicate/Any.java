@@ -10,10 +10,8 @@ import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * A predicate that checks if any of its facts pass a given test.
- * @author Arvid Halma
- */
+/// A predicate that checks if any of its facts pass a given test.
+/// @author Arvid Halma
 public class Any extends AbstractPredicate<FactSet, FactSet> {
 
     private Predicate<Fact, FactSet> factPredicate;

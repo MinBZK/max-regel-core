@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.core.term.Fact;
 import io.github.zvasva.maxregel.core.term.Terms;
 import io.github.zvasva.maxregel.core.term.Term;
 
-/**
- * Merge terms of two {@link FactSet}s pairwise, by taking the union of the corresponding {@link Term}s.
- */
+/// Merge terms of two [FactSet]s pairwise, by taking the union of the corresponding [Term]s.
 public class Merge extends Zip {
 
     public Merge(Rule selectA, Rule selectB) {

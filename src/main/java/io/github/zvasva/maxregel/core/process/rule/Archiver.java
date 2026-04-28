@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Transforms a factset to a normalized "long" format.
- * It creates an archive factset with tuples;
- * (timestamp, uuid (per this rule's instance), part, term key, term value)
- */
+/// Transforms a factset to a normalized "long" format.
+/// It creates an archive factset with tuples;
+/// (timestamp, uuid (per this rule's instance), part, term key, term value)
 public class Archiver extends AbstractRule {
    
     private final String uuid;

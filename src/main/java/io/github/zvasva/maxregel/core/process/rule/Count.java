@@ -7,9 +7,7 @@ import io.github.zvasva.maxregel.core.term.MapTerm;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
-/**
- * Stores the size of a FactSet in a fact with a chosen variable/field name.
- */
+/// Stores the size of a FactSet in a fact with a chosen variable/field name.
 public class Count extends AbstractRule {
 
     private final Rule select;
