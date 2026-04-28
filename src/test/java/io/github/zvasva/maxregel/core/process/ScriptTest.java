@@ -2,6 +2,7 @@ package io.github.zvasva.maxregel.core.process;
 
 import io.github.zvasva.maxregel.core.factset.FactSet;
 import io.github.zvasva.maxregel.core.factset.FactSets;
+import io.github.zvasva.maxregel.core.process.rule.Concat;
 import io.github.zvasva.maxregel.core.process.rule.NamePrefix;
 import io.github.zvasva.maxregel.core.process.rule.Rules;
 import io.github.zvasva.maxregel.core.process.rule.Script;
@@ -36,6 +37,27 @@ public class ScriptTest {
         print("script with deps...", script);
         assertEquals(3, result.get("kids").size());
         assertEquals(1, result.get("boys").size());
+    }
+
+
+
+    @Test
+    public void testScript1b() {
+        print("""
+              A simple script
+              """);
+        Script script = script(
+                let("woman", new Concat(from("simpsons"), from("non-existent")).then(filter("gender", "==", "female"))),
+                let("girls", filter("woman", "age", "<", 18))
+        );
+
+        print("script", script.ast());
+        FactSet result = script.apply(simpsons);
+        print("\nresult", result);
+
+        Rules.annotateDependencies(script);
+        print("script with deps...", script);
+        assertEquals(2, result.get("girls").size());
     }
 
 
