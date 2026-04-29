@@ -13,7 +13,7 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 /// Set/replace "variable" Factset, defined by a [Rule].
 /// The Assignment class implements the Rule interface, representing an assignment operation
 /// that removes a possible old result, and adding the result of applying a rule.
-public abstract class Assign extends AbstractRule {
+public abstract sealed class Assign extends AbstractRule permits AssignSet, AssignUpdate {
     protected final String variable;
     protected final Rule body;
     protected final Map<String, Object> info;
