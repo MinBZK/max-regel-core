@@ -15,57 +15,34 @@ import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNo
 public class AllEqual extends AbstractRule {
 
     private final Rule select;
-    private final String fieldName;
+    private final String field;
+    private final io.github.zvasva.maxregel.core.process.predicate.AllEqual allEqualPredicate;
 
-    public AllEqual(String fieldName) {
-        this(Rule.identity(), fieldName);
+    public AllEqual(String field) {
+        this(Rule.identity(), field);
     }
 
-    public AllEqual(Rule select, String fieldName) {
+    public AllEqual(Rule select, String field) {
         this.select = requireNonNullArg(select, "select");
-        this.fieldName = requireNonNullArg(fieldName, "fieldName");
+        this.field = requireNonNullArg(field, "field");
+        this.allEqualPredicate = new io.github.zvasva.maxregel.core.process.predicate.AllEqual(field);
     }
 
     @Override
     public String op() {
-        return "allEqual";
+        return "all_equal";
     }
 
     @Override
     public AstNode ast() {
-        return createNode(select.ast(), fieldName);
+        return createNode(select.ast(), field);
     }
 
     @Override
     public FactSet apply(FactSet factset) {
         FactSet selection = select.apply(factset);
-        
-        // Handle empty set case - consider all equal
-        if (selection.isEmpty()) {
-            return FactSets.create(MapTerm.of("allEqual", true));
-        }
-
-        // Get the first value to compare against
-        Object prevValue = null;
-        boolean prevValueSet = false;
-        boolean allEqual = true;
-
-        for (Fact fact : selection) {
-            Object value = fact.get(fieldName);
-            
-            if (!prevValueSet) {
-                // Set the first value
-                prevValue = value;
-                prevValueSet = true;
-            } else {
-                // Compare with previous value
-                if (!Objects.equals(prevValue, value)) {
-                    allEqual = false;
-                    break; // Early exit if we find a mismatch
-                }
-            }
-        }
-
-        return FactSets.create(MapTerm.of("allEqual", allEqual));
+        boolean output = allEqualPredicate.test(selection);
+        return FactSets.create(MapTerm.of("all_equal", output));
     }
+
 }

@@ -204,7 +204,7 @@ public class RuleTest {
             MapTerm.of("x", 42)
         );
         FactSet result = new AllEqual("x").apply(allSame);
-        assertEquals(true, first(result).get("allEqual"));
+        assertEquals(true, first(result).get("all_equal"));
 
         // Not all equal
         FactSet notAllSame = FactSets.create(
@@ -213,17 +213,17 @@ public class RuleTest {
             MapTerm.of("x", 42)
         );
         FactSet result2 = new AllEqual("x").apply(notAllSame);
-        assertEquals(false, first(result2).get("allEqual"));
+        assertEquals(false, first(result2).get("all_equal"));
 
         // Single value
         FactSet single = FactSets.create(MapTerm.of("x", 99));
         FactSet result3 = new AllEqual("x").apply(single);
-        assertEquals(true, first(result3).get("allEqual"));
+        assertEquals(true, first(result3).get("all_equal"));
 
         // Empty set
         FactSet empty = EMPTY;
         FactSet result4 = new AllEqual("x").apply(empty);
-        assertEquals(true, first(result4).get("allEqual"));
+        assertEquals(true, first(result4).get("all_equal"));
 
         // Null values
         FactSet nulls = FactSets.create(
@@ -231,7 +231,7 @@ public class RuleTest {
             MapTerm.of("x", null)
         );
         FactSet result5 = new AllEqual("x").apply(nulls);
-        assertEquals(true, first(result5).get("allEqual"));
+        assertEquals(true, first(result5).get("all_equal"));
 
         // Mixed null and value
         FactSet mixed = FactSets.create(
@@ -239,7 +239,7 @@ public class RuleTest {
             MapTerm.of("x", 1)
         );
         FactSet result6 = new AllEqual("x").apply(mixed);
-        assertEquals(false, first(result6).get("allEqual"));
+        assertEquals(false, first(result6).get("all_equal"));
     }
 
     @Test
