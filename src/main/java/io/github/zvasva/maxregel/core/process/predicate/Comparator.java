@@ -10,14 +10,13 @@ import io.github.zvasva.maxregel.core.term.Term;
 import io.github.zvasva.maxregel.core.term.Terms;
 import io.github.zvasva.maxregel.util.NumberComparator;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
 
 import static io.github.zvasva.maxregel.core.process.MaxRegelException.requireNonNullArg;
 
 /// A comparison function, which imposes a total ordering on some collection of objects.
 /// It takes special care of comparing Numbers (e.g. Long > Double).
-///
 /// @author Arvid Halma
 public class Comparator extends AbstractPredicate<Fact, FactSet> {
     private final String op;
@@ -29,7 +28,7 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
 
     protected Comparator(String op, int signForTrue, boolean includeEquals) {
         this.op = requireNonNullArg(op, "op");
-        this.field = null;
+        this.field = "0";
         this.y = null;
         this.signForTrue = signForTrue;
         this.includeEquals = includeEquals;
@@ -51,18 +50,22 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
         return y;
     }
 
+    public Comparator withY(Object y) {
+        return new Comparator(op, field, y, signForTrue, includeEquals);
+    }
+
     public String op() {
         return op;
     }
 
     @Override
     public AstNode ast() {
-        return new AstNode(op,  Map.of(), List.of(field, y));
+        return new AstNode(op,  Map.of(), Arrays.asList(field, y));
     }
 
     @Override
     public Comparator bind(FactSet parameterData) {
-        if(field == null || y == null) {
+        if(field == null || "0".equals(field) || y == null) {
             // No rule to bind, just first key and value
             Term term = FactSets.firstTerm(parameterData);
             String fieldConcrete = Terms.firstKey(term);
@@ -79,7 +82,12 @@ public class Comparator extends AbstractPredicate<Fact, FactSet> {
 
     @Override
     public boolean test(Fact fact) {
-        Object x = fact.get(field);
+        Object x;
+        if(field == null || "0".equals(field)){
+            x = Terms.first(fact.getTerm());
+        } else {
+            x = fact.get(field);
+        }
         return apply(x, y);
     }
 

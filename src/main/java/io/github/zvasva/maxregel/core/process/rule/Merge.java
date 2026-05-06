@@ -12,7 +12,7 @@ public class Merge extends Zip {
 
     public Merge(Rule selectA, Rule selectB) {
         super(
-                BinaryOperation.fromJavaBinaryOperator((a, b) -> new Fact(Terms.union(a.getTerm(), b.getTerm()))),
+                BinaryOperation.fromJavaBinaryOperator(Fact::union),
                 selectA,
                 selectB
         );

@@ -131,6 +131,7 @@ public class SinglePartFactSet extends AbstractFactSet {
 
     @Override
     public FactSet filter(Predicate<Fact, FactSet> predicate) {
+        // See if we can use a cached result
         if(predicate instanceof Comparator cmp && "field_eq".equals(cmp.op())){
             Object y = cmp.getY();
             if(y instanceof Number n) {
@@ -143,6 +144,7 @@ public class SinglePartFactSet extends AbstractFactSet {
             }
             return filtered;
         }
+        // The general case
         return new SinglePartFactSet(facts.stream().filter(predicate.asJavaPredicate())::iterator, name, distinct, factOperation());
     }
 
